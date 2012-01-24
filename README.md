@@ -7,8 +7,8 @@ Canvas Framework for smartphone
 DOWNLOAD
 -----------
 - ※ 利用の際は必ず[ライセンス](https://github.com/DeNADev/Arctic.js/blob/master/licence.txt)に同意の上利用してください
-- [arctic.js]()
-- [arctic.min.js]()
+- [arctic.js](https://raw.github.com/DeNADev/Arctic.js/master/arctic.js)
+- [arctic.min.js](https://raw.github.com/DeNADev/Arctic.js/master/arctic.min.js)
 
 
 DOCUMENTATION

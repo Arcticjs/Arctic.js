@@ -108,7 +108,7 @@
 	 * @constant {String} isiOS3
 	 * @memberOf arc.ua
 	 */
-	ua.isiOS3	= ((ua.isiPhone || ua.isiPad) && /OS\s3/.test(navigator.userAgent));
+	ua.isiOS3	= (ua.isiOS && /OS\s3/.test(navigator.userAgent));
 	/**
 	 * Androidからのアクセスかどうか
 	 * @name isAndroid

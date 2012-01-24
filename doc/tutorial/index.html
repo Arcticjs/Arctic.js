@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Hello SyntaxHighlighter</title>
+	<script type="text/javascript" src="js/shCore.js"></script>
+	<script type="text/javascript" src="js/shBrushJScript.js"></script>
+	<link type="text/css" rel="stylesheet" href="css/shCoreDefault.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+</head>
+<body>
+<h2><a name="TOC-TUTORIAL"></a>TUTORIAL</h2>
+<h3><a name="TOC-1"></a>クラス作成方法</h3>
+1) 基本的な作成方法<br />
+<pre class="brush: js;">
+var Person = arc.Class.create({
+  _name:null,
+
+  initialize: function(name) {
+    this.setName(name);
+  },
+
+  setName: function(name){
+    this._name = name;
+  },
+
+  getName: function() {
+    return this._name;
+  }
+});
+
+var person = new Person('Randy');
+console.log(person.getName());  //John
+</pre>
+インスタンス生成時にinitializeが呼ばれる。<br />
+<br />
+<br />
+2) 継承<br />
+<pre class="brush: js;">
+var Employee = arc.Class.create(Person, {
+  _division:null,
+
+  initialize:function(name, division) {
+    this._division = division;
+  },
+
+  getDivision:function() {
+    return this._division;
+  }
+});
+
+var employee = new Employee('Chris', 'unit1');
+console.log(employee.getName());  //Chris
+console.log(employee.getDivision());  //unit1
+</pre>
+<br />
+<br />
+3) 継承元メソッドの利用<br />
+<pre class="brush: js;">
+var Friend = arc.Class.create(Person, {
+  _nickname:null,
+
+  initialize:function(name) {
+    this.setName(name);
+  },
+
+  setName: function($super, name, nickname){
+    $super(name);
+    this._nickname = nickname;
+  },
+
+  getNickName:function(){
+    return this._nickname;
+  }
+});
+
+var friend = new Friend();
+friend.setName('Willie', 'Will');
+console.log(friend.getName());  //Willie
+console.log(friend.getNickName());  //Will
+</pre>
+
+継承先で同名のメソッドを定義した場合、通常はオーバーライトされるので、<br />
+継承元メソッドも利用したい場合は、この方法を用いる。<br />
+<br />
+<br />
+<h3><a name="TOC-2"></a>ゲームクラス作成</h3>
+arc.Gameを継承したGameクラスを作成<br />
+initialize, updateのメソッドを実装する。<br />
+<pre class="brush: js;">
+var GameMain = arc.Class.create(arc.Game, {
+  //Gameパラメーターをセットする処理等の初期化処理
+  initialize:function(params){
+    console.log(params.hp);  //100
+  },
+  //ランループから毎フレーム実行される
+  update:function(){
+
+  }
+});
+</pre>
+
+DOMContentLoadedのタイミングでarc.Systemインスタンスを作成し、上記で定義したゲームクラスをセット。<br />
+ゲームに必要なパラメーターや画像パスを指定し、ローディングを開始する。<br />
+arc.Event.PROGRESSをaddEventListenerするとイベントオブジェクトのtotalプロパティに読み込む画像数、loadedプロパティに読み込みが終了した画像数が格納されている。<br />
+arc.Event.COMPLETEが読み込み終了時に発火される。<br />
+この二つのイベントを用いてプリローダーを実装できる。<br />
+ローディング終了時に自動的にゲームが開始される。<br />
+<pre class="brush: js;">
+window.addEventListener('DOMContentLoaded', function(e){
+  var system = new arc.System(320, 416, 'canvas');
+  system.setGameClass(GameMain, {hp:100, mp:100});
+  system.addEventListener(arc.Event.PROGRESS, function(e){
+   console.log(e.loaded + ", " + e.total);
+  });
+  system.addEventListener(arc.Event.COMPLETE, function(){
+    console.log('loaded');
+  });
+  system.load(['a.png', 'b.png']);
+}, false);
+</pre>
+<br />
+<br />
+
+<h3><a name="TOC-4"></a>表示オブジェクト作成</h3>
+SystemインスタンスのgetImageメソッドで読み込んだHTMLImageElementが取得できる。<br />
+これを引数に表示オブジェクトを生成し、addChildを行う。<br />
+ゲームクラスのthis._systemプロパティにSystemインスタンスが格納されている。<br />
+<pre class="brush: js;">
+var GameMain = arc.Class.create(arc.Game, {
+  initialize:function(params){
+    var sp = new arc.display.Sprite(this._system.getImage('a.png'));
+    sp.setX(10);
+    sp.setY(10);
+    this.addChild(sp);
+  },
+  update:function(){
+
+  }
+});
+</pre>
+
+<h3><a name="TOC-5"></a>表示オブジェクトの種類</h3>
+• Sprite<br />
+シンプルに画像を描画したいときに使う。<br />
+
+<br />
+• SheetMovieClip<br />
+以下のようにコマが連続したpng画像をアニメーションさせるクラス。<br />
+<div style="display:block;text-align:left"><a href="https://sites.google.com/a/dena.jp/sm-sg-sp/canvas-game-framework/burst.png?attredirects=0" imageanchor="1"><img border="0" src="img/burst.png" /></a></div>
+<pre class="brush: js;">
+var GameMain = arc.Class.create(arc.Game, {
+  initialize:function(params){
+    var mc = new arc.display.SheetMovieClip(this._system.getImage('b.png'), 174, 125);
+    this.addChild(mc);
+    mc.play();
+  },
+  update:function(){
+  }
+});
+</pre>
+playでアニメーション開始。<br />
+<br />
+• DisplayObjectContainer<br />
+• MovieClip<br />
+
+• SequenceMovieClip<br />
+• Shape<br />
+• TextField<br /></div></td></tr></tbody></table>
+</div> 
+</div> 
+</body>
+</html>

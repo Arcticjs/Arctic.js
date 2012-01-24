@@ -1395,7 +1395,7 @@
 	display.Shape = Class.create(display.DisplayObject, 
 	/** @lends arc.display.Shape.prototype */
 	{
-		_funcStuck:null, _minX:0, _maxX:0, _minY:0, _maxY:0, _firstFlg:true, _willBeFilled:false, _willBeStroked:false,
+		_funcStack:null, _minX:0, _maxX:0, _minY:0, _maxY:0, _firstFlg:true, _willBeFilled:false, _willBeStroked:false,
 	
 		/**
 		 * @class canvasにベクタを描画する表示オブジェクト
@@ -1404,7 +1404,7 @@
 		 * @description Shapeオブジェクト生成
 		 */
 		initialize:function(){
-			this._funcStuck = new Array();
+			this._funcStack = new Array();
 		},
 		/**
 		 * 塗りの開始
@@ -1413,7 +1413,7 @@
 		 */ 
 		beginFill:function(color, alpha){
 			var self = this;
-			this._funcStuck.push(function(pX, pY, pScaleX, pScaleY, pAlpha){
+			this._funcStack.push(function(pX, pY, pScaleX, pScaleY, pAlpha){
 				self._willBeFilled = true;
 				var ctx = display.Image.context;
 				ctx.fillStyle = getColorStyle(color);
@@ -1425,7 +1425,7 @@
 		 */
 		endFill:function(){
 			var self = this;
-			this._funcStuck.push(function(pX, pY, pScaleX, pScaleY, pAlpha){
+			this._funcStack.push(function(pX, pY, pScaleX, pScaleY, pAlpha){
 				self._willBeFilled = false;
 				var ctx = display.Image.context;
 			});
@@ -1439,7 +1439,7 @@
 		beginStroke:function(thickness, color, alpha){
 			var self = this;
 			if(!alpha) alpha = 1;
-			this._funcStuck.push(function(pX, pY, pScaleX, pScaleY, pAlpha){
+			this._funcStack.push(function(pX, pY, pScaleX, pScaleY, pAlpha){
 				self._willBeStroked = true;
 				
 				var ctx = display.Image.context;
@@ -1453,7 +1453,7 @@
 		 */
 		endStroke:function(){
 			var self = this;
-			this._funcStuck.push(function(pX, pY, pScaleX, pScaleY, pAlpha){
+			this._funcStack.push(function(pX, pY, pScaleX, pScaleY, pAlpha){
 				self._willBeStroked = false;
 			});
 		},
@@ -1463,7 +1463,7 @@
 		 * @param {Number} y 移動先のy座標
 		 */
 		moveTo:function(x, y){
-			this._funcStuck.push(function(pX, pY, pScaleX, pScaleY, pAlpha){
+			this._funcStack.push(function(pX, pY, pScaleX, pScaleY, pAlpha){
 				var ctx = display.Image.context;
 				ctx.moveTo((x + pX) / pScaleX, (y + pY) / pScaleY);
 			});
@@ -1475,7 +1475,7 @@
 		 */
 		lineTo:function(x, y){
 			var self = this;
-			this._funcStuck.push(function(pX, pY, pScaleX, pScaleY, pAlpha){
+			this._funcStack.push(function(pX, pY, pScaleX, pScaleY, pAlpha){
 				var ctx = display.Image.context;
 				ctx.lineTo((x + pX) / pScaleX, (y + pY) / pScaleY);
 				if(self._willBeStroked) ctx.stroke();
@@ -1505,7 +1505,7 @@
 			this._height = this._maxY - this._minY;
 			
 			var self = this;
-			this._funcStuck.push(function(pX, pY, pScaleX, pScaleY, pAlpha){
+			this._funcStack.push(function(pX, pY, pScaleX, pScaleY, pAlpha){
 				var ctx = display.Image.context;
 				ctx.beginPath();
 				ctx.rect((x + pX) / pScaleX, (y + pY) / pScaleY, width, height);
@@ -1536,7 +1536,7 @@
 			this._height = this._maxY - this._minY;
 	
 			var self = this;
-			this._funcStuck.push(function(pX, pY, pScaleX, pScaleY, pAlpha){
+			this._funcStack.push(function(pX, pY, pScaleX, pScaleY, pAlpha){
 				var ctx = display.Image.context;
 				ctx.beginPath();
 				ctx.arc((x + pX) / pScaleX, (y + pY) / pScaleY, radius, 0, 360, false);
@@ -1559,13 +1559,13 @@
 			var tAlpha = pAlpha * this._alpha;
 			var tRotation = pRotation + this._rotation;
 			
-			var len = this._funcStuck.length;
+			var len = this._funcStack.length;
 			var ctx = display.Image.context;
 			
 			ctx.save();
 			ctx.scale(tScaleX, tScaleY);
 			for(var i = 0; i < len; i++){
-				var func = this._funcStuck[i];
+				var func = this._funcStack[i];
 				func.call(this, tX, tY, tScaleX, tScaleY, tAlpha, tRotation);
 			}
 			ctx.restore();

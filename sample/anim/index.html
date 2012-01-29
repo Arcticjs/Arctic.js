@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>アニメ</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1; user-scalable=no;">
+</head>
+<body>
+<div id="loading"><div class="cont"></div></div>
+<canvas id="canvas"></canvas>
+<div id="fps" style="color:#ffffff;"></div>
+<div id="time" style="color:#ff0000;"></div>
+<script src="../../arctic.js"></script>
+<script>
+var GameMain = arc.Class.create(arc.Game, {
+	//Gameパラメーターをセットする処理等の初期化処理
+	initialize:function(params){
+		var ajax = new arc.Ajax();
+		var self = this;
+		ajax.addEventListener(arc.Event.COMPLETE, function(){
+			var mc = new arc.display.JSONMovieClip(ajax.getResponseJSON());
+			console.log(mc);
+			self.addChild(mc);
+		});
+		ajax.load('sample.json');
+	},
+	//ランループから実行される毎フレームの処理
+	update:function(){
+
+	}
+});
+window.addEventListener('DOMContentLoaded', function(e){
+	var system = new arc.System(320, 320, 'canvas', false, true);
+	system.setGameClass(GameMain, {hp:100, mp:100});
+	system.addEventListener(arc.Event.PROGRESS, function(e){
+		console.log(e.loaded + ", " + e.total);
+	});
+	system.addEventListener(arc.Event.COMPLETE, function(){
+		console.log('loaded');
+	});
+	system.load(['sample.png']);
+}, false);
+</script>
+</body>
+</html>

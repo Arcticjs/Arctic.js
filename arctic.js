@@ -1,3 +1,7 @@
+/**
+ * Arctic.js v0.1.2
+ * Copyright (c) 2012 DeNA Co., Ltd. 
+ */
 (function(global){
 	/**
 	 * 引数をカンマ区切りで表示。console.logのラッパー
@@ -1883,19 +1887,15 @@
 			    MovieClip = arc.display.MovieClip;
 
 			var lib = obj.lib,
-			    fps = obj.fps;
+			    fps = obj.fps,
+			    mainInfo = getInfo(obj.main);
 
 			$super(fps);
 
 			function getDisplayObject(id, disp){
 				var i, info, img, len, timeline, child, disp;
 				
-				for(i = 0, len = lib.length; i < len; i++){
-					info = lib[i];
-					if(info.id == id){
-						break;
-					}
-				}
+				info = getInfo(id);
 				if(!info){
 					throw new Error("invalid animation");
 				}
@@ -1921,6 +1921,18 @@
 				}
 				return disp;
 			}
+			function getInfo(id){
+				var i, len, info;
+				for(i = 0, len = lib.length; i < len; i++){
+					info = lib[i];
+					if(info.id == id){
+						break;
+					}
+				}
+				return info;
+			}
+			
+			this._shouldLoop = (mainInfo.loop);
 			getDisplayObject(obj.main, this);
 		}
 	});	

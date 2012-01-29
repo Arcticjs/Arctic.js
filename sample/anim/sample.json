@@ -1,0 +1,21 @@
+{
+	"fps":24,
+	"frame":40,
+	"main":3,
+	"lib":[
+		{"id":1, "type":"data", "data":"sample.png", "pos":[0,0,34,34]},
+		{"id":2, "type":"mc", "loop":"true", "timelines":[
+			{"target":1, "align":"CENTER", "keyframes":{
+				"1" : {"x":17, "y":17, "transition":"SINE_IN"},
+				"10": {"y":117, "transition":"SINE_OUT"},
+				"19": {"y":17}
+			}}
+		]},
+		{"id":3, "type":"mc", "loop":"true", "timelines":[
+			{"target":2, "align":"LEFT", "keyframes":{
+				"1" : {"x":-34, "transition":"LINEAR"},
+				"40": {"x":320}
+			}}
+		]}
+	]
+}

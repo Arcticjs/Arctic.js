@@ -1496,8 +1496,10 @@
 			if(this._firstFlg){
 				this._firstFlg = false;
 				this._minX = x;
+                                this.setX(x);
 				this._maxX = x + width;
 				this._minY = y;
+                                this.setY(y);
 				this._maxY = y + height;
 			}
 			if(x < this._minX) this._minX = x;
@@ -1512,7 +1514,7 @@
 			this._funcStack.push(function(pX, pY, pScaleX, pScaleY, pAlpha){
 				var ctx = display.Image.context;
 				ctx.beginPath();
-				ctx.rect((x + pX) / pScaleX, (y + pY) / pScaleY, width, height);
+				ctx.rect(pX / pScaleX, pY / pScaleY, width, height);
 				if(self._willBeFilled) ctx.fill();
 				if(self._willBeStroked) ctx.stroke();
 			});
@@ -1556,8 +1558,8 @@
 			pAlpha = (!isNaN(pAlpha)) ? pAlpha : 1;
 			pRotation = (pRotation) ? pRotation : 0;
 	
-			var tX = pX + this._x * pScaleX;
-			var tY = pY + this._y * pScaleY;
+			var tX = pX * pScaleX;
+			var tY = pY * pScaleY;
 			var tScaleX = pScaleX * this._scaleX;
 			var tScaleY = pScaleY * this._scaleY;
 			var tAlpha = pAlpha * this._alpha;

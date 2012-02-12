@@ -1526,15 +1526,15 @@
 		drawCircle:function(x, y, radius){
 			if(this._firstFlg){
 				this._firstFlg = false;
-				this._minX = x - radius / 2;
-				this._maxX = x + radius / 2;
-				this._minY = y - radius / 2;
-				this._maxY = y + radius / 2;
+				this._minX = x - radius;
+				this._maxX = x + radius;
+				this._minY = y - radius;
+				this._maxY = y + radius;
 			}
-			if(x - radius / 2 < this._minX) this._minX = x - radius / 2;
-			if(x + radius / 2 > this._maxX) this._maxX = x + radius / 2;
-			if(y - radius / 2 < this._minY) this._minY = y - radius / 2;
-			if(y + radius / 2 > this._maxY) this._maxY = y + radius / 2;
+			if(x - radius < this._minX) this._minX = x - radius;
+			if(x + radius > this._maxX) this._maxX = x + radius;
+			if(y - radius < this._minY) this._minY = y - radius;
+			if(y + radius > this._maxY) this._maxY = y + radius;
 	
 			this._width = this._maxX - this._minX;
 			this._height = this._maxY - this._minY;

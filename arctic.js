@@ -54,6 +54,23 @@
 		var returnY = x * Math.sin(theta) + y * Math.cos(theta);
 		return [returnX, returnY];
 	}
+
+	function getRotatedRect(x, y, width, height, rotation){
+		if(arc.ua.isAndroid2_1){
+			return [x, y, width, height];
+		}
+		var pos0 = getRotatedPos(x, y, rotation),
+		    pos1 = getRotatedPos(x + width, y, rotation),
+		    pos2 = getRotatedPos(x, y + height, rotation),
+		    pos3 = getRotatedPos(x + width, y + height, rotation);
+
+		var minX = Math.min(pos0[0], pos1[0], pos2[0], pos3[0]),
+		    minY = Math.min(pos0[1], pos1[1], pos2[1], pos3[1]),
+		    maxX = Math.max(pos0[0], pos1[0], pos2[0], pos3[0]),
+		    maxY = Math.max(pos0[1], pos1[1], pos2[1], pos3[1]);
+			
+		return [minX, minY, maxX - minX, maxY - minY];	
+	}
 	
 	function getColorStyle(color){
 		var red = color >> 16;
@@ -895,7 +912,7 @@
 	/** @lends arc.display.DisplayObject.prototype */
 	{
 		_data:null, _parent:null,
-		_x:0, _y:0, _width:null, _height:null, _visible:true, _scaleX:1, _scaleY:1, _alpha:1, _rotation:0, _alignX:0, _alignY:0,
+		_x:0, _y:0, _width:null, _height:null, _visible:true, _scaleX:1, _scaleY:1, _alpha:1, _rotation:0, _alignX:0, _alignY:0, _screenRect:[],
 		/**
 		 * @class 表示オブジェクトの基本クラス
 		 * @constructs
@@ -908,6 +925,7 @@
 			this._data = data;
 			this._width = this._data.getWidth();
 			this._height = this._data.getHeight();
+			this._screenRect = [0, 0, this._width, this._height];
 		},
 		/**
 		 * ローカルの座標系からグローバルの座標系に変換
@@ -974,6 +992,7 @@
 		 */ 
 		setX:function(value){
 			this._x = value;
+			this._updateScreenRect();
 		},
 		/**
 		 * x座標を取得
@@ -988,6 +1007,7 @@
 		 */ 
 		setY:function(value){
 			this._y = value;
+			this._updateScreenRect();
 		},
 		/**
 		 * y座標を取得
@@ -1006,6 +1026,7 @@
 			if(this._data){
 				this._scaleX = this._width / this._data.getWidth();
 			}
+			this._updateScreenRect();
 		},
 		/**
 		 * 幅を取得
@@ -1024,6 +1045,7 @@
 			if(this._data){
 				this._scaleY = this._height / this._data.getHeight();
 			}
+			this._updateScreenRect();
 		},
 		/**
 		 * 高さを取得
@@ -1041,6 +1063,7 @@
 			//if(value > 1) trace("exceed scale 1 :" + value);
 			this._scaleX = value;
 			this._width = this._data.getWidth() * this._scaleX;
+			this._updateScreenRect();
 		},
 		/**
 		 * 横の拡大率を取得
@@ -1058,6 +1081,7 @@
 			if(!value) value = 0;
 			this._scaleY = value;
 			this._height = this._data.getHeight() * this._scaleY;
+			this._updateScreenRect();
 		},
 		/**
 		 * 縦の拡大率を取得
@@ -1130,6 +1154,15 @@
 		 */ 
 		getAlignY:function(){
 			return this._alignY;
+		},
+
+		_updateScreenRect:function(){
+			var tX = this._x + this._alignX * this._scaleX,
+			    tY = this._y + this._alignY * this._scaleY,
+			    tWidth = this._width,
+			    tHeight = this._height;
+			
+			this._screenRect = getRotatedRect(tX, tY, tWidth, tHeight, this._rotation);
 		}
 	});
 	
@@ -1148,6 +1181,7 @@
 		initialize:function($super){
 			$super(null);
 			this._displayArr = [];
+			this._minX = this._maxX = this._minY = this._maxY = 0;
 		},
 		/**
 		 * 表示リストにDisplayObjectオブジェクトを追加
@@ -1277,6 +1311,7 @@
 			for(var i = 0; i < len; i++){
 				var disp = this._displayArr[i];
 	
+				/*
 				if(i == 0){
 					minX = disp.getX();
 					minY = disp.getY();
@@ -1287,12 +1322,52 @@
 				if(disp.getX() + disp.getWidth() > maxX) maxX = disp.getX() + disp.getWidth();
 				if(disp.getY() < minY) minY = disp.getY();
 				if(disp.getY() + disp.getHeight() > maxY) maxY = disp.getY() + disp.getHeight();
+				*/
+
+				/*
+				var tminX, tminY, tmaxX, tmaxY;
+				if(disp.constructor === display.DisplayObjectContainer){
+					tminX = disp._minX;
+					tminY = disp._minY;
+					tmaxX = disp._maxX;
+					tmaxY = disp._maxY;
+				}else{
+					tminX = disp.getX();
+					tminY = disp.getY();
+					tmaxX = disp.getX() + disp.getWidth();
+					tmaxY = disp.getY() + disp.getHeight();
+				}
+				*/
+				var tminX = disp._screenRect[0],
+				    tminY = disp._screenRect[1],
+				    tmaxX = disp._screenRect[0] + disp._screenRect[2],
+				    tmaxY = disp._screenRect[1] + disp._screenRect[3];
+
+				if(i == 0){
+					minX = tminX;
+					minY = tminY;
+					maxX = tmaxX;
+					maxY = tmaxY;
+				}
+				if(tminX < minX) minX = tminX;
+				if(tmaxX > maxX) maxX = tmaxX;
+				if(tminY < minY) minY = tminY;
+				if(tmaxY > maxY) maxY = tmaxY;
+				
 			}
 	
-			this._originWidth = maxX - minY;
+			this._originWidth = maxX - minX;
 			this._originHeight = maxY - minY;
 			this._width = this._originWidth * this._scaleX;
 			this._height = this._originHeight * this._scaleY;
+
+			this._screenRect = getRotatedRect(
+				minX * this._scaleX + this._x,
+				minY * this._scaleY + this._y,
+				this._width,
+				this._height,
+				this._rotation
+			);
 		},
 		
 		setWidth:function(value){
@@ -1328,6 +1403,10 @@
 		 */
 		clearMask:function(){
 			this._maskObj = null;
+		},
+
+		_updateScreenRect:function(){
+			this._updateSize();
 		}
 	});
 	
@@ -1507,7 +1586,14 @@
 	
 			this._width = this._maxX - this._minX;
 			this._height = this._maxY - this._minY;
-			
+			this._screenRect = getRotatedRect(
+				this._minX * this._scaleX + this._x,
+				this._minY * this._scaleY + this._y,
+				this._width,
+				this._height,
+				this._rotation
+			);			
+
 			var self = this;
 			this._funcStack.push(function(pX, pY, pScaleX, pScaleY, pAlpha){
 				var ctx = display.Image.context;
@@ -1538,7 +1624,14 @@
 	
 			this._width = this._maxX - this._minX;
 			this._height = this._maxY - this._minY;
-	
+			this._screenRect = getRotatedRect(
+				this._minX * this._scaleX + this._x,
+				this._minY * this._scaleY + this._y,
+				this._width,
+				this._height,
+				this._rotation
+			);	
+
 			var self = this;
 			this._funcStack.push(function(pX, pY, pScaleX, pScaleY, pAlpha){
 				var ctx = display.Image.context;
@@ -3120,13 +3213,12 @@
 				}
 			}
 			function findTarget(cont, x, y){
-				var list = cont._displayArr, disp, posX, posY;
+				var list = cont._displayArr, disp, pos;
 				for(var i = list.length - 1; i >= 0; i--){
 					disp = list[i];
-					posX = disp.getX();
-					posY = disp.getY();
+					pos = cont.localToGlobal(disp._screenRect[0], disp._screenRect[1]);
 					
-					if(posX <= x && posX + disp.getWidth() >= x && posY <= y && posY + disp.getHeight() >= y){
+					if(pos[0] <= x && pos[0] + disp._screenRect[2] >= x && pos[1] <= y && pos[1] + disp._screenRect[3] >= y){
 						if(disp._displayArr){
 							return findTarget(disp, x, y);
 						}else{

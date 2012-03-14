@@ -2,17 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Hello SyntaxHighlighter</title>
+	<title>Arctic.jsチュートリアル</title>
 	<script type="text/javascript" src="js/shCore.js"></script>
 	<script type="text/javascript" src="js/shBrushJScript.js"></script>
+	<script type="text/javascript" src="js/shBrushPlain.js"></script>
 	<link type="text/css" rel="stylesheet" href="css/shCoreDefault.css"/>
 	<script type="text/javascript">SyntaxHighlighter.all();</script>
 
 </head>
 <body>
-<h2><a name="TOC-TUTORIAL"></a>TUTORIAL</h2>
-<h3><a name="TOC-1"></a>クラス作成方法</h3>
-1) 基本的な作成方法<br />
+<h1>Arctic.jsチュートリアル</h1>
+<h2>はじめに</h2>
+最新版のダウンロードは<a href="https://github.com/DeNADev/Arctic.js" target="_blank">こちらから</a><br>
+<h2>クラスについて</h2>
+Arctic.jsはオブジェクト指向で書くように設計している。<br>
+<h3>基本的な作成方法</h3>
+<a href="../api/symbols/arc.Class.html">arc.Class.create</a>にオブジェクトを渡すことでクラスが生成される。<br>
+インスタンス生成時にinitializeが呼ばれる。
 <pre class="brush: js;">
 var Person = arc.Class.create({
   _name:null,
@@ -33,10 +39,9 @@ var Person = arc.Class.create({
 var person = new Person('Randy');
 console.log(person.getName());  //John
 </pre>
-インスタンス生成時にinitializeが呼ばれる。<br />
-<br />
-<br />
-2) 継承<br />
+<h3>継承</h3>
+<a href="../api/symbols/arc.Class.html">arc.Class.create</a>の第一引数に継承元のクラスオブジェクトを渡し、第二引数にオブジェクトを渡すことで、<br>
+第一引数で渡したクラスを継承したクラスオブジェクトが生成される。
 <pre class="brush: js;">
 var Employee = arc.Class.create(Person, {
   _division:null,
@@ -54,9 +59,9 @@ var employee = new Employee('Chris', 'unit1');
 console.log(employee.getName());  //Chris
 console.log(employee.getDivision());  //unit1
 </pre>
-<br />
-<br />
-3) 継承元メソッドの利用<br />
+<h3>継承元メソッドの利用</h3>
+オブジェクト内に継承元と同名のメソッドがあった場合、オーバーライドされる。<br>
+継承元メソッドも利用したい場合は、$superとい引数を加えると、$superに継承元メソッドの参照が代入される。
 <pre class="brush: js;">
 var Friend = arc.Class.create(Person, {
   _nickname:null,
@@ -81,18 +86,32 @@ console.log(friend.getName());  //Willie
 console.log(friend.getNickName());  //Will
 </pre>
 
-継承先で同名のメソッドを定義した場合、通常はオーバーライトされるので、<br />
-継承元メソッドも利用したい場合は、この方法を用いる。<br />
-<br />
-<br />
-<h3><a name="TOC-2"></a>ゲームクラス作成</h3>
-arc.Gameを継承したGameクラスを作成<br />
-initialize, updateのメソッドを実装する。<br />
+
+<h2>ゲームを作る</h2>
+<h3>HTMLファイルを用意</h3>
+htmlファイルを用意して、arctic.jsとゲームコードを記述するファイルを読み込み、canvasにidをつける
+<pre class="brush: js;">
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="content-type" content="text/html; charset=UTF-8"&gt;
+&lt;meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1; user-scalable=no;"/&gt;
+&lt;title&gt;Game&lt;/title&gt;
+&lt;body&gt;
+&lt;canvas id="canvas"&gt;&lt;/canvas&gt;
+&lt;script type="text/javascript" src="js/arctic.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/game.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<h3>ゲームクラス作成</h3>
+game.jsにコードを記述してゆく<br>
+まずarc.Gameを継承したGameクラスを作成する。<br>
+initialize, updateのメソッドを実装する。<br>
 <pre class="brush: js;">
 var GameMain = arc.Class.create(arc.Game, {
   //Gameパラメーターをセットする処理等の初期化処理
   initialize:function(params){
-    console.log(params.hp);  //100
+    console.log(params.hp);  
   },
   //ランループから毎フレーム実行される
   update:function(){
@@ -100,33 +119,41 @@ var GameMain = arc.Class.create(arc.Game, {
   }
 });
 </pre>
-
-DOMContentLoadedのタイミングでarc.Systemインスタンスを作成し、上記で定義したゲームクラスをセット。<br />
-ゲームに必要なパラメーターや画像パスを指定し、ローディングを開始する。<br />
-arc.Event.PROGRESSをaddEventListenerするとイベントオブジェクトのtotalプロパティに読み込む画像数、loadedプロパティに読み込みが終了した画像数が格納されている。<br />
-arc.Event.COMPLETEが読み込み終了時に発火される。<br />
-この二つのイベントを用いてプリローダーを実装できる。<br />
-ローディング終了時に自動的にゲームが開始される。<br />
+<h3>ゲームクラス利用方法</h3>
+DOMContentLoadedのタイミングで<a href="../api/symbols/arc.System.html">arc.System</a>インスタンスを作成し、上記で定義したゲームクラスをsetGameClassを用いてセット。
 <pre class="brush: js;">
 window.addEventListener('DOMContentLoaded', function(e){
+  //ゲームのサイズとcanvasのidを渡す
   var system = new arc.System(320, 416, 'canvas');
+
+  //第二引数で渡したオブジェクトがゲームクラスのinitializeの引数として渡される
   system.setGameClass(GameMain, {hp:100, mp:100});
+
+  //画像が読み込まれる度に実行される。イベントオブジェクトのtotalプロパティに読み込む画像数、loadedプロパティに読み込みが終了した画像数が格納されている。
   system.addEventListener(arc.Event.PROGRESS, function(e){
-   console.log(e.loaded + ", " + e.total);
+      console.log(e.loaded + ", " + e.total);
   });
+
+  //画像が読み込み終わったら実行され、ゲームクラスが自動的にインスタンス化され、ゲームが開始される
   system.addEventListener(arc.Event.COMPLETE, function(){
-    console.log('loaded');
+      console.log('loaded');
   });
+
+  //画像パスを配列で指定して読み込み開始
   system.load(['a.png', 'b.png']);
 }, false);
 </pre>
-<br />
-<br />
+<br>
 
-<h3><a name="TOC-4"></a>表示オブジェクト作成</h3>
-SystemインスタンスのgetImageメソッドで読み込んだHTMLImageElementが取得できる。<br />
-これを引数に表示オブジェクトを生成し、addChildを行う。<br />
-ゲームクラスのthis._systemプロパティにSystemインスタンスが格納されている。<br />
+<h2>描画を行う</h2>
+arc.displayパッケージ以下のクラスが描画を担当している。<br>
+これらのクラスはすべて<a href="../api/symbols/arc.display.DisplayObject.html">arc.display.DisplayObject</a>を継承している。
+
+<h3>画像の表示</h3>
+単純な画像の表示の場合、<a href="../api/symbols/arc.display.Sprite.html">arc.display.Sprite</a>を用いる。<br>
+SystemインスタンスのgetImageメソッドで読み込んだHTMLImageElementが取得できるので、<br>
+これを引数にSpriteインスタンスを生成し、addChildを行う。<br>
+ゲームクラスのthis._systemプロパティにSystemインスタンスが格納されている。
 <pre class="brush: js;">
 var GameMain = arc.Class.create(arc.Game, {
   initialize:function(params){
@@ -141,34 +168,127 @@ var GameMain = arc.Class.create(arc.Game, {
 });
 </pre>
 
-<h3><a name="TOC-5"></a>表示オブジェクトの種類</h3>
-• Sprite<br />
-シンプルに画像を描画したいときに使う。<br />
 
-<br />
-• SheetMovieClip<br />
-以下のようにコマが連続したpng画像をアニメーションさせるクラス。<br />
+<h3>自由に描画を行う</h3>
+<a href="../api/symbols/arc.display.Shape.html">arc.display.Shape</a>を用いれば、円、矩形、線の描画が自由に行える。<br>
+以下の例では赤い塗りに青い縁が描画される。
+<pre class="brush: js;">
+var GameMain = arc.Class.create(arc.Game, {
+    initialize:function(params){
+        var shape = new arc.display.Shape();
+        shape.beginStroke(10, 0x00ffff);
+        shape.beginFill(0xff0000);
+        shape.drawCircle(200,200, 100);
+        shape.endFill();
+        shape.endStroke();
+        this.addChild(shape);
+    },
+    update:function(){
+
+    }
+});
+</pre>
+
+<h3>コマが連続したpng画像をアニメーションさせる</h3>
+<a href="../api/symbols/arc.display.SheetMovieClip.html">arc.display.SheetMovieClip</a>を用いる。<br>
+以下のようにコマが連続したpng画像をアニメーションさせるクラス。<br>
+playでアニメーション開始。
 <div style="display:block;text-align:left"><img border="0" src="img/burst.png" /></div>
 <pre class="brush: js;">
 var GameMain = arc.Class.create(arc.Game, {
-  initialize:function(params){
-    var mc = new arc.display.SheetMovieClip(this._system.getImage('b.png'), 174, 125);
-    this.addChild(mc);
-    mc.play();
-  },
-  update:function(){
-  }
+    initialize:function(params){
+        var mc = new arc.display.SheetMovieClip(this._system.getImage('burst.png'), 174, 12);
+        this.addChild(mc);
+        mc.play(true);
+    },
+    update:function(){
+
+    }
 });
 </pre>
-playでアニメーション開始。<br />
-<br />
-• DisplayObjectContainer<br />
-• MovieClip<br />
 
-• SequenceMovieClip<br />
-• Shape<br />
-• TextField<br /></div></td></tr></tbody></table>
-</div> 
-</div> 
+<h3>入れ子の表示を行う</h3>
+<a href="../api/symbols/arc.display.DisplayObjectContainer.html">arc.display.DisplayObjectContainer</a>を用いると表示オブジェクトを入れ子にできる。<br>
+下の例でspriteが実際に表示される位置はx:250、y:150となる。
+<pre class="brush: js;">
+var GameMain = arc.Class.create(arc.Game, {
+    initialize:function(params){
+        var container = new arc.display.DisplayObjectContainer(),
+            sprite = new arc.display.Sprite(system.getImage('ball.png'));
+
+        sprite.setX(50);
+        sprite.setY(100);
+        container.addChild(sprite);
+
+        container.setX(200);
+        container.setY(50);
+        this.addChild(container);
+    },
+    update:function(){
+    }
+});
+</pre>
+
+<h2>アニメーション</h2>
+<h3>簡単にアニメーションさせる</h3>
+<a href="../api/symbols/arc.anim.Animation.html">arc.anim.Animation</a>を用いる<br>
+第一引数に対象のオブジェクト、それ以降に変化するプロパティと所用時間、トランジション関数を渡すと逐次にアニメーションを行う。<br>
+arc.Event.COMPLETEイベントがアニメーションが終了した時点で発火される。
+<pre class="brush: js;">
+var GameMain = arc.Class.create(arc.Game, {
+    initialize:function(params){
+        var target = new arc.display.Sprite(system.getImage('ball0.png')),
+            anim = new arc.anim.Animation(target, 
+                {x:0, y:0},
+                {x:200, y:100, time:1000, transition:arc.anim.Transition.SINE_OUT},
+                {x:100, y:300, time:1000, transition:arc.anim.Transition.SINE_OUT});
+
+            anim.addEventListener(arc.Event.COMPLETE, function(e){
+                console.log('animation finished');
+            });
+            this.addChild(target);
+	    //再生開始
+            anim.play();
+    },
+    update:function(){
+
+    }
+});
+</pre>
+<h3>複数の表示オブジェクトを同時にアニメーションさせる</h3>
+<a href="../api/symbols/arc.display.MovieClip.html">arc.display.MovieClip</a>を用いてキーフレームを使ったアニメーションを実現させる。<br>
+addChildの第二引数にキーフレームの情報を定義したオブジェクトを渡す
+<pre class="brush: js;">
+var GameMain = arc.Class.create(arc.Game, {
+    initialize:function(params){
+        var ball0 = new arc.display.Sprite(system.getImage('ball0.png'));
+        var ball1 = new arc.display.SheetMovieClip(system.getImage('burst.png'), 174, 12);
+
+	//12fpsで再生を行うMovieClipを生成
+        var mc = new arc.display.MovieClip(12, true);
+
+	//1フレーム目にx:0, y:0、5フレーム目でx:250, y:100へSINE_OUTの関数を使ってアニメーションを行う
+        mc.addChild(ball0, {
+            1 : {x:0, y:0, transition:arc.anim.Transition.SINE_OUT},
+            5 : {x:250, y:100}
+        });
+
+	//1フレーム目にscaleX:0.5, scaleY:0.5、10フレーム目でscaleX:3, scaleY:3へSINE_OUTでアニメーションを行う
+        mc.addChild(ball1, {
+            1 : {scaleX:0.5, scaleY:0.5, transition:arc.anim.Transition.SINE_OUT},
+            10 : {scaleX:3, scaleY:3}
+        });
+        ball1.setAlign(arc.display.Align.CENTER);
+        ball1.setX(100);
+        ball1.setY(100);
+
+	//MovieClipのインスタンスがaddChildされたタイミングで再生開始
+        this.addChild(mc);
+    },
+    update:function(){
+
+    }
+});
+</pre>
 </body>
 </html>

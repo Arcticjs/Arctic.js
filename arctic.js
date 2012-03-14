@@ -394,7 +394,7 @@
 	var Timer = Class.create(
 	/** @lends arc.Timer.prototype */
 	{
-		_startTime:0, _isCounting:false,
+		_startTime:0, _isCounting:false, _elapsedTime:0,
 		/**
 		 * @class ランループを制御するタイマークラス。クラスメソッドtickを実行する事で時間を進め、生成されたインスタンスはその時間を元に動作する。
 		 * @description タイマーインスタンスを生成
@@ -427,8 +427,10 @@
 		 * startしてからの経過時間を取得。
 		 */ 
 		getElapsed:function(){
-			if(!this._isCounting && !this._startTime) return 0;
-			return Timer.time - this._startTime;
+			if(this._isCounting){
+				this._elapsedTime = Timer.time - this._startTime;
+			}
+			return this._elapsedTime;
 		}
 	});
 	Timer.time = 0;

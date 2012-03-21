@@ -1,5 +1,5 @@
 /**
- * Arctic.js v0.1.2
+ * Arctic.js v0.1.4
  * Copyright (c) 2012 DeNA Co., Ltd. 
  */
 (function(global){

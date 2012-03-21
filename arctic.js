@@ -486,7 +486,7 @@
 				this._currentCount++;
 				this._timer.reset();
 				this.dispatchEvent(Event.TIMER);
-				if(this._currentCount >= this._repeatCount){
+				if(this._repeatCount && this._currentCount >= this._repeatCount){
 					this.reset();
 					this.dispatchEvent(Event.TIMER_COMPLETE);
 				}
@@ -3346,10 +3346,10 @@
 		 * Gameをスタートさせる
 		 */
 		start:function(){
+			Timer.tick();
 			this._game = new this._gameClass(this._gameParams, this);
 			this._stage.addChild(this._game);
 	
-			Timer.tick();
 			this._prevTime = Timer.time;
 	
 			this._timer.start();

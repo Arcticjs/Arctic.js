@@ -1,7 +1,11 @@
-arctic.js
+Arctic.js
 ======
 
+<img src="https://raw.github.com/DeNADev/Arctic.js/master/logo.png" width="347" height="287">
+
 Canvas Framework for smartphone
+
+- [Google Groups](https://groups.google.com/group/arcticjs?hl=ja)
 
 
 DOWNLOAD

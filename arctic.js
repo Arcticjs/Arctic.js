@@ -1,5 +1,5 @@
 /**
- * Arctic.js v0.1.4
+ * Arctic.js v0.1.5
  * Copyright (c) 2012 DeNA Co., Ltd. 
  */
 (function(global){
@@ -1312,34 +1312,7 @@
 			var len = this._displayArr.length;
 			for(var i = 0; i < len; i++){
 				var disp = this._displayArr[i];
-	
-				/*
-				if(i == 0){
-					minX = disp.getX();
-					minY = disp.getY();
-					maxX = disp.getX() + disp.getWidth();
-					maxY = disp.getY() + disp.getHeight();
-				}
-				if(disp.getX() < minX) minX = disp.getX();
-				if(disp.getX() + disp.getWidth() > maxX) maxX = disp.getX() + disp.getWidth();
-				if(disp.getY() < minY) minY = disp.getY();
-				if(disp.getY() + disp.getHeight() > maxY) maxY = disp.getY() + disp.getHeight();
-				*/
 
-				/*
-				var tminX, tminY, tmaxX, tmaxY;
-				if(disp.constructor === display.DisplayObjectContainer){
-					tminX = disp._minX;
-					tminY = disp._minY;
-					tmaxX = disp._maxX;
-					tmaxY = disp._maxY;
-				}else{
-					tminX = disp.getX();
-					tminY = disp.getY();
-					tmaxX = disp.getX() + disp.getWidth();
-					tmaxY = disp.getY() + disp.getHeight();
-				}
-				*/
 				var tminX = disp._screenRect[0],
 				    tminY = disp._screenRect[1],
 				    tmaxX = disp._screenRect[0] + disp._screenRect[2],
@@ -1566,14 +1539,7 @@
 				if(self._willBeStroked) ctx.stroke();
 			});
 		},
-		/**
-		 * 矩形を描画
-		 * @param {Number} x 矩形のx座標
-		 * @param {Number} y 矩形のy座標
-		 * @param {Number} width 矩形の横幅
-		 * @param {Number} height 矩形の高さ
-		 */ 
-		drawRect:function(x, y, width, height){
+		_updateSize: function(x, y, width, height){
 			if(this._firstFlg){
 				this._firstFlg = false;
 				this._minX = x;
@@ -1586,15 +1552,23 @@
 			if(y < this._minY) this._minY = y;
 			if(y + height > this._maxY) this._maxY = y + height;
 	
-			this._width = this._maxX - this._minX;
-			this._height = this._maxY - this._minY;
-			this._screenRect = getRotatedRect(
-				this._minX * this._scaleX + this._x,
-				this._minY * this._scaleY + this._y,
-				this._width,
-				this._height,
-				this._rotation
-			);			
+			this._originWidth = this._maxX - this._minX;
+			this._originHeight = this._maxY - this._minY;
+
+			this._width = this._originWidth * this._scaleX;
+			this._height = this._originHeight * this._scaleY;
+
+			this._updateScreenRect();
+		},
+		/**
+		 * 矩形を描画
+		 * @param {Number} x 矩形のx座標
+		 * @param {Number} y 矩形のy座標
+		 * @param {Number} width 矩形の横幅
+		 * @param {Number} height 矩形の高さ
+		 */ 
+		drawRect:function(x, y, width, height){
+			this._updateSize(x, y, width, height);
 
 			var self = this;
 			this._funcStack.push(function(pX, pY, pScaleX, pScaleY, pAlpha){
@@ -1612,27 +1586,7 @@
 		 * @param {Number} radius 円の半径
 		 */
 		drawCircle:function(x, y, radius){
-			if(this._firstFlg){
-				this._firstFlg = false;
-				this._minX = x - radius;
-				this._maxX = x + radius;
-				this._minY = y - radius;
-				this._maxY = y + radius;
-			}
-			if(x - radius < this._minX) this._minX = x - radius;
-			if(x + radius > this._maxX) this._maxX = x + radius;
-			if(y - radius < this._minY) this._minY = y - radius;
-			if(y + radius > this._maxY) this._maxY = y + radius;
-	
-			this._width = this._maxX - this._minX;
-			this._height = this._maxY - this._minY;
-			this._screenRect = getRotatedRect(
-				this._minX * this._scaleX + this._x,
-				this._minY * this._scaleY + this._y,
-				this._width,
-				this._height,
-				this._rotation
-			);	
+			this._updateSize(x - radius, y - radius, radius * 2, radius * 2);
 
 			var self = this;
 			this._funcStack.push(function(pX, pY, pScaleX, pScaleY, pAlpha){
@@ -1651,8 +1605,8 @@
 			pAlpha = (!isNaN(pAlpha)) ? pAlpha : 1;
 			pRotation = (pRotation) ? pRotation : 0;
 	
-			var tX = pX + this._x * pScaleX;
-			var tY = pY + this._y * pScaleY;
+			var tX = pX;
+			var tY = pY;
 			var tScaleX = pScaleX * this._scaleX;
 			var tScaleY = pScaleY * this._scaleY;
 			var tAlpha = pAlpha * this._alpha;
@@ -1670,22 +1624,42 @@
 			ctx.restore();
 		},
 		setWidth:function(value){
-			this._scaleX = value / this._width;
+			//this._scaleX = value / this._width;
+			this._width = value;
+			this._scaleX = this._width / this._originWidth;
+			this._updateScreenRect();
 		},
 		getWidth:function(){
 			return this._width * this._scaleX;
 		},
 		setHeight:function(value){
-			this._scaleY = value / this._height;
+			//this._scaleY = value / this._height;
+			this._height = value;
+			this._scaleY = this._height / this._originHeight;
+			this._updateScreenRect();
 		},
 		getHeight:function(){
 			return this._height * this._scaleY;
 		},
 		setScaleX:function(value){
+			//this._scaleX = value;
 			this._scaleX = value;
+			this._width = this._originWidth * this._scaleX;
+			this._updateScreenRect();
 		},
 		setScaleY:function(value){
+			//this._scaleY = value;
 			this._scaleY = value;
+			this._height = this._originHeight * this._scaleY;
+			this._updateScreenRect();
+		},
+		_updateScreenRect:function(){
+			var tX = this._x + this._minX * this._scaleX,
+			    tY = this._y + this._minY * this._scaleY,
+			    tWidth = this._width,
+			    tHeight = this._height;
+			
+			this._screenRect = getRotatedRect(tX, tY, tWidth, tHeight, this._rotation);
 		}
 	});
 	

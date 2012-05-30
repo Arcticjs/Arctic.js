@@ -1,5 +1,5 @@
 /**
- * Arctic.js v0.1.5
+ * Arctic.js v0.1.6
  * Copyright (c) 2012 DeNA Co., Ltd. 
  */
 (function(global){
@@ -3196,7 +3196,10 @@
 					
 					if(pos[0] <= x && pos[0] + disp._screenRect[2] >= x && pos[1] <= y && pos[1] + disp._screenRect[3] >= y){
 						if(disp._displayArr){
-							return findTarget(disp, x, y);
+                            var target = findTarget(disp, x, y);
+                            if(target){
+                                return target;
+                            }
 						}else{
 							return disp;
 						}

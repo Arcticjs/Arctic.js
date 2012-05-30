@@ -1,5 +1,5 @@
 /**
- * Arctic.js v0.1.6
+ * Arctic.js v0.1.7
  * Copyright (c) 2012 DeNA Co., Ltd. 
  */
 (function(global){
@@ -1252,6 +1252,22 @@
 			}
 			return false;
 		}, 
+	
+        /**
+         * 子DisplayObjectの深度を変更する
+         * @param {DisplayObject} child 変更したい子DisplayObject
+         * @param {Number} index 変更後の深度
+         */
+        setChildIndex:function(child, index){
+            for(var i = 0, len = this._displayArr.length; i < len; i++){
+                var disp = this._displayArr[i];
+                if(disp == child){
+                    this._displayArr.splice(i, 1);
+                    this._displayArr.splice(index, 0, child);
+                }
+            }
+        },
+
 		draw:function(pX, pY, pScaleX, pScaleY, pAlpha, pRotation){
 			if(!this.getVisible()) return;
 	

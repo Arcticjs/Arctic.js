@@ -3132,6 +3132,7 @@
 		_stage:null, _imageManager:null,
 		_realFps:0, _runTime:0, _runCount:0, _prevTime:0, _fpsElem:null,
 		_maxFps:0, _adjustCount:1, _timer:null,
+        _canvasScale: 1,
 	
 		_ADJUST_FPS_TIME:10000, _ADJUST_FACTOR:2.5,
 		
@@ -3179,23 +3180,23 @@
 
 		},
 		_setViewport:function(e){
-			var scale, width;
-			width = window.innerWidth;
+			var width = window.innerWidth;
 
 			if(width < this._canvas.width){
 				width = this._canvas.width;
 			}
 
-			scale = width / this._canvas.width;
+			this._canvasScale = width / this._canvas.width;
 
 			this._canvas.style.width = width + 'px';
-			this._canvas.style.height = Math.floor(this._canvas.height * scale) + 'px';
+			this._canvas.style.height = Math.floor(this._canvas.height * this._canvasScale) + 'px';
 		},
 		_setEvent:function(){
 			var self = this, touchObj = {};
 
 			function getPos(obj){
-				return {x:obj.pageX - self._canvas.offsetLeft, y:obj.pageY - self._canvas.offsetTop};
+                console.log(obj.pageX + ' ' + obj.pageY + ' ' + this._canvasScale);
+				return {x:obj.pageX / self._canvasScale - self._canvas.offsetLeft, y:obj.pageY / self._canvasScale - self._canvas.offsetTop};
 			}
 			function dispatchTarget(targ, type, object){
 				var tparent = targ.getParent();

@@ -1,5 +1,5 @@
 /**
- * Arctic.js v0.1.7
+ * Arctic.js v0.1.8
  * Copyright (c) 2012 DeNA Co., Ltd. 
  */
 (function(global){
@@ -3195,7 +3195,6 @@
 			var self = this, touchObj = {};
 
 			function getPos(obj){
-                console.log(obj.pageX + ' ' + obj.pageY + ' ' + this._canvasScale);
 				return {x:obj.pageX / self._canvasScale - self._canvas.offsetLeft, y:obj.pageY / self._canvasScale - self._canvas.offsetTop};
 			}
 			function dispatchTarget(targ, type, object){
@@ -3209,6 +3208,9 @@
 				var list = cont._displayArr, disp, pos;
 				for(var i = list.length - 1; i >= 0; i--){
 					disp = list[i];
+                    if(!disp.getVisible()){
+                        continue;
+                    }
 					pos = cont.localToGlobal(disp._screenRect[0], disp._screenRect[1]);
 					
 					if(pos[0] <= x && pos[0] + disp._screenRect[2] >= x && pos[1] <= y && pos[1] + disp._screenRect[3] >= y){

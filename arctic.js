@@ -3313,6 +3313,7 @@
 		 * @param {Array} resourceArr ImageManagerに渡すリソース配列
 		 */ 
 		load:function(resourceArr){
+			this._isStartedWithLoad = true;
 			if(!this._imageManager){
 				this._imageManager = new ImageManager();
 			}
@@ -3327,7 +3328,7 @@
 			this._imageManager.removeEventListener(Event.PROGRESS);
 			this._imageManager.removeEventListener(Event.COMPLETE);
 			this.dispatchEvent(Event.COMPLETE);
-			this.start();	
+			this._startGame();	
 		},
 		/**
 		 * Gameのメインクラスを指定
@@ -3342,6 +3343,13 @@
 		 * Gameをスタートさせる
 		 */
 		start:function(){
+			if(this._game || this._isStartedWithLoad){
+				throw new Error('do not call System.start or System.load again');
+			}
+			this._startGame();
+		},
+
+		_startGame: function(){
 			Timer.tick();
 			this._game = new this._gameClass(this._gameParams, this);
 			this._stage.addChild(this._game);

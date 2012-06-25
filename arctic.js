@@ -3122,7 +3122,7 @@
 			getLoaded	: getLoaded
 		};
 	})());
-	
+
 	
 	var System = Class.create(EventDispatcher, 
 	/** @lends arc.System.prototype */
@@ -3165,13 +3165,22 @@
 			this._fpsElem = document.getElementById('fps');
 
 			this._setEvent();
+			this._setScroll();
 		},
 		/**
 		 * フルスクリーンモードをonにする。canvasの幅がデバイスの横幅になる。デバイスを回転させた場合も同様。
+		 * @param {Number} mode フルスクリーンモード
+		 * @example
+		 * system.setFullScreen("width");		//アスペクト比は保ったまま、コンテンツの横幅を画面の横幅に合わせる
+		 * system.setFullScreen("height");		//アスペクト比は保ったまま、コンテンツの縦幅を画面の縦幅に合わせる
+		 * system.setFullScreen("all", true);	//アスペクト比は保ったまま、コンテンツを必ず画面内におさめる
 		 */ 
-		setFullScreen:function(){
+		setFullScreen:function(mode, shouldShrink){
+			this._fullScreenMode = (mode) ? mode : 'width';
+			this._shouldShrink = shouldShrink;
+
 			this._setViewport();
-			
+
 			if(ua.isiOS){
 				window.addEventListener('orientationchange', bind(this._setViewport, this), true);
 			}else{
@@ -3180,15 +3189,36 @@
 
 		},
 		_setViewport:function(e){
-			var width = window.innerWidth;
-
-			if(width < this._canvas.width){
+			var width = window.innerWidth,
+			    height = window.innerHeight;
+				
+			if(!this._shouldShrink && width < this._canvas.width){
 				width = this._canvas.width;
 			}
 
-			this._canvasScale = width / this._canvas.width;
+			if(!this._shouldShrink && height < this._canvas.height){
+				height = this._canvas.height;
+			}
 
-			this._canvas.style.width = width + 'px';
+			var widthScale = width / this._canvas.width,
+				heightScale = height / this._canvas.height;
+
+			switch(this._fullScreenMode){
+				case 'width':
+					this._canvasScale = widthScale;
+					break;
+
+				case 'height':
+					this._canvasScale = heightScale;
+					break;
+
+				case 'all':
+					this._canvasScale = (widthScale < heightScale) ? widthScale : heightScale;
+					break;
+
+			}
+
+			this._canvas.style.width = Math.floor(this._canvas.width * this._canvasScale) + 'px';
 			this._canvas.style.height = Math.floor(this._canvas.height * this._canvasScale) + 'px';
 		},
 		_setEvent:function(){
@@ -3306,6 +3336,21 @@
 				this._canvas.addEventListener('touchend', touchEnd, true);
 			}else{
 				this._canvas.addEventListener('mousedown', touchStart, true);
+			}
+		},
+		_setScroll:function(){
+			function doScroll(){
+				if (window.pageYOffset <= 1) {						
+					setTimeout(bind(function () {
+						scrollTo(0, 1);
+						setTimeout(bind(this._setViewport, this), 1000);
+					}, this), 10);
+				}
+			}
+			if(didLoad){
+				window.addEventListener("load", bind(doScroll, this), false);
+			}else{
+				doScroll.call(this);
 			}
 		},
 		/**
@@ -3437,7 +3482,6 @@
 	
 	
 	
-	
 	//abstract classes
 	var Game = Class.create(display.DisplayObjectContainer, {
 		_system:null,
@@ -3448,14 +3492,17 @@
 			
 		}
 	});
-	
-	
+
+	var didLoad = false;
 	window.addEventListener("load", function () {
+		didLoad = true;
+		/*
 		if (window.pageYOffset <= 1) {						
 			setTimeout (function () {
 				scrollTo(0, 1);
 			}, 10);
 		}
+		*/
 	}, false);
 
 	

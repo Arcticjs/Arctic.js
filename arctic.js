@@ -3168,8 +3168,9 @@
 			this._setScroll();
 		},
 		/**
-		 * フルスクリーンモードをonにする。canvasの幅がデバイスの横幅になる。デバイスを回転させた場合も同様。
-		 * @param {Number} mode フルスクリーンモード
+		 * 指定したフルスクリーンモードにする。デバイスを回転させた時にも適用される。
+		 * @param {String} mode フルスクリーンモード
+		 * @param {Boolean} shouldShrink 縮小を許可するか
 		 * @example
 		 * system.setFullScreen("width");		//アスペクト比は保ったまま、コンテンツの横幅を画面の横幅に合わせる
 		 * system.setFullScreen("height");		//アスペクト比は保ったまま、コンテンツの縦幅を画面の縦幅に合わせる

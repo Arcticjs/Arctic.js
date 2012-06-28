@@ -114,6 +114,7 @@ html, body{
 #top > .container > .menu > .download{
     float: right;
     width: 156px;
+    background: #98171c;
     background: -webkit-linear-gradient(top,#ae3338 49%,#98171c 50%);
     background: -moz-linear-gradient(top,#ae3338 49%,#98171c 50%);
     background: -ms-linear-gradient(top,#ae3338 49%,#98171c 50%);

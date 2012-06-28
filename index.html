@@ -1,9 +1,93 @@
+<!DOCTYPE>
 <html>
 <head>
-<title>Arctic.js</title>
+<title>Arctic.js | A JavaScript game engine for smartphones</title>
+<link href="css/main.css" rel="stylesheet" />
 </head>
 <body>
-<img src="img/logo.png">
-<a href="docs/index.html">API Docs</a>
+<div id="top">
+    <div class="container">
+        <div class="logo"><img src="img/logo.png"></div>
+        <div class="tagline">A JavaScript game engine for smartphones</div>
+        <div class="menu">
+                <ul class="main boxshadow">
+                    <li class="first"><a href="docs/index.html">Documentation</a></li>
+                    <li><a href="https://github.com/DeNADev/Arctic.js" target="_blank">Github</a></li>
+                    <li class="last"><a href="https://groups.google.com/group/arcticjs" target="_blank">Discussion</a></li>
+                </ul>
+            <div class="download boxshadow">
+                <a href="https://github.com/DeNADev/Arctic.js/zipball/master">Download</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="bottom">
+    <div class="container">
+        <div class="content">
+            <h2>What is Arctic.js</h2>
+            <div class="description">
+            Arctic.js is a game engine for smartphone web browsers written in JavaScript with HTML5 Canvas. It provides a hierarchical display lists, event propagation and useful animation features. These features are used through ActionScript3 friendly APIs which Flash developers are familier to.
+            </div>
+
+            <h2>License</h2>
+            <div class="description">
+            MIT License
+            </div>
+
+            <h2>Getting started</h2>
+            <div class="description">
+                <div>1.&nbsp;<a href="https://github.com/DeNADev/Arctic.js/zipball/master">Download</a> Arctic.js</div>
+                <div>2.&nbsp;Import Arctic.js to your HTML</div>
+<pre><code>&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="content-type" content="text/html; charset=UTF-8"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/&gt;
+&lt;title&gt;Game&lt;/title&gt;
+&lt;body&gt;
+&lt;canvas id="canvas"&gt;&lt;/canvas&gt;
+&lt;script type="text/javascript" src="js/arctic.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/game.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                <div>3.&nbsp;Create game class in your JavaScript file</div>
+<pre><code>var GameMain = arc.Class.create(arc.Game, {
+  initialize:function(params){
+    console.log(params.hp);  
+  },
+  //This method is called in every frame
+  update:function(){
+
+  }
+});</pre></code>
+                <div>4.&nbsp;Use the game class</div>
+<pre><code>window.addEventListener('DOMContentLoaded', function(e){
+  //Pass the width and height of your game and id of the canvas element
+  var system = new arc.System(320, 416, 'canvas');
+
+  //The second parameter will be passed as a parameter of initialize method in the game class
+  system.setGameClass(GameMain, {hp:100, mp:100});
+
+  system.addEventListener(arc.Event.PROGRESS, function(e){
+      console.log(e.loaded + ", " + e.total);
+  });
+
+  system.addEventListener(arc.Event.COMPLETE, function(){
+      console.log('loaded');
+  });
+
+  //After finishing its loading, an instance of the game class will be created automatically
+  system.load(['a.png', 'b.png']);
+}, false);</code></pre>
+            </div>
+
+
+            <h2>Author</h2>
+            <div class="description">
+            <a href="http://dena.jp/intl/">DeNA</a><br>
+            Ryo Chikazawa(@chikathreesix) <a href="https://twitter.com/chikathreesix/" target="_blank">Twitter</a>&nbsp;|&nbsp;<a href="http://blog.chikathreesix.com/" target="_blank">Blog</a> 
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -1,0 +1,180 @@
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+	border: 0 none;
+	font-family: inherit;
+	font-size: 100%;
+	font-style: inherit;
+	font-weight: inherit;
+	margin: 0;
+	padding: 0;
+	vertical-align: baseline;
+}
+
+
+html, body{
+    width: 100%;
+    height: 100%;
+    font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
+}
+
+
+.boxshadow{
+    -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, .3);
+    -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, .3);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, .3);
+}
+
+
+
+#top{
+    font-family:Futura, sans-serif;
+}
+
+#top > .container{
+    width: 600px;
+    margin: 0 auto;
+    padding-top: 20px;
+}
+
+#top > .container > .logo{
+    width: 347px;
+    margin: 0 auto;
+}
+
+#top > .container > .tagline{
+    color: #595656;
+    font-size: 24px;
+    margin-top:10px;
+    text-align: center;
+}
+
+
+#top > .container > .menu{
+    margin: 20px 0;
+    height: 40px;
+}
+
+#top > .container > .menu:after{
+    content: ""; 
+    display: block; 
+    clear: both;
+}
+
+#top > .container > .menu a{
+    text-decoration: none;
+    color: #ffffff;
+    width: inherit;
+    height: inherit;
+    display: block;
+}
+
+
+#top > .container > .menu > ul{
+    list-style:none;
+    background-color: #595656;
+    float: left;
+    width: 424px;
+    height: inherit;
+}
+
+#top > .container > .menu > ul:after{
+    content: ""; 
+    display: block; 
+    clear: both;
+}
+
+#top > .container > .menu > ul > li{
+    float:left;
+    width: 140px;
+    height: inherit;
+    text-align: center;
+    border-left: 1px solid #333333;
+    border-right: 1px solid #777777;
+}
+
+#top > .container > .menu > ul > li.first{
+    border-left: none;
+}
+
+#top > .container > .menu > ul > li.last{
+    border-right: none;
+}
+
+#top > .container > .menu > ul > li > a{
+    padding-top: 8px;
+    height: 32px;
+}
+
+#top > .container > .menu > ul > li > a:hover{
+    background: #777777;
+}
+
+
+
+
+#top > .container > .menu > .download{
+    float: right;
+    width: 156px;
+    background: -webkit-linear-gradient(top,#ae3338 49%,#98171c 50%);
+    background: -moz-linear-gradient(top,#ae3338 49%,#98171c 50%);
+    background: -ms-linear-gradient(top,#ae3338 49%,#98171c 50%);
+    background: -o-linear-gradient(top,#ae3338 49%,#98171c 50%);
+    background: linear-gradient(top,#ae3338 49%,#98171c 50%);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+#top > .container > .menu > .download > a{
+    width: 100px;
+    height: 32px;
+    padding-top: 8px;
+    padding-left: 56px;
+    background: url('../img/download.png') no-repeat 16px 8px;
+}
+
+
+
+
+#bottom{
+    width: 100%;
+    background-color: #98171c;
+    padding-top: 20px;
+    -webkit-box-shadow: -2px 0px 5px rgba(0, 0, 0, .3);
+    -moz-box-shadow: -2px 0px 5px rgba(0, 0, 0, .3);
+    box-shadow: -2px 0px 5px rgba(0, 0, 0, .3);
+}
+
+#bottom > .container{
+    width: 600px;
+    margin: 0 auto;
+}
+
+#bottom > .container > .content{
+    background-color: #ffffff;
+    padding: 20px;
+}
+
+#bottom h2{
+    font-family:Futura, sans-serif;
+    font-size: 18px;
+    color: #b81c22;
+    margin-bottom: 10px;
+}
+
+#bottom .description{
+    color: #595656;
+    margin-bottom: 20px;
+}
+
+#bottom .description > div{
+    margin: 5px 0;
+}
+
+#bottom pre{
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    background: #595656;
+    color: #ffffff;
+    overflow-x: scroll;
+}

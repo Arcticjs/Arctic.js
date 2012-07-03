@@ -5,6 +5,7 @@ Arctic.js
 
 Canvas Framework for smartphone
 
+- [Introduction](http://denadev.github.com/Arctic.js/)
 - [Google Groups](https://groups.google.com/group/arcticjs?hl=ja)
 
 

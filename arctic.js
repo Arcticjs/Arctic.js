@@ -1,5 +1,5 @@
 /**
- * Arctic.js v0.1.8
+ * Arctic.js v0.1.9
  * Copyright (c) 2012 DeNA Co., Ltd. 
  */
 (function(global){
@@ -3014,8 +3014,8 @@
 			this._loadedImgNum = 0;
 			this._loadImgNum = srcArr.length;
 			this._loadingImgArr = [];
-	
-			if(len === 0){
+            
+			if(!srcArr || srcArr.length === 0){
 				this.dispatchEvent(Event.COMPLETE);
 				return;
 			}

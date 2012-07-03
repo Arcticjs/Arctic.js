@@ -636,7 +636,7 @@
 		 * @constructs
 		 * @augments arc.EventDispatcher
 		 * @description Imageオブジェクトを生成
-		 * @param {HTMLImageElement} param HTMLImageElementまたは画像パス
+		 * @param {HTMLImageElement} data HTMLImageElementまたは画像パス
 		 * @param {Number} localPosArr 利用するローカル座標とサイズを配列で指定します。(オプション）
 		 *
 		 */ 

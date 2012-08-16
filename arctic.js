@@ -2645,7 +2645,7 @@
 				case Transition.SINE_OUT :
 					return getSineOut;
 				case Transition.SINE_INOUT:
-					return getSinInOut;
+					return getSineInOut;
 				case Transition.CIRC_IN:
 					return getCircIn;
 				case Transition.CIRC_OUT:

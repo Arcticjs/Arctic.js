@@ -1,5 +1,5 @@
 /**
- * Arctic.js v0.1.9
+ * Arctic.js v0.1.10
  * Copyright (c) 2012 DeNA Co., Ltd. 
  */
 (function(global){
@@ -245,6 +245,7 @@
 	/** @lends arc.Event.prototype */
 	{
 		type:null, target:null,
+        _willPropagate: true,
 		/**
 		 * @class イベント発生時にリスナーに渡されるイベントオブジェクトを生成する基本クラス
 		 * @constructs
@@ -262,7 +263,15 @@
 					this[prop] = params[prop];
 				}
 			}
-		}
+		},
+
+        stopPropagation: function(){
+            this._willPropagate = false;
+        },
+
+        willPropagate: function(){
+            return this._willPropagate;
+        }
 	});
 	/**
 	 * @name PROGRESS
@@ -369,7 +378,16 @@
 		 * イベントをイベントフローに送出
 		 * @param {arc.Event} イベントオブジェクト
 		 */ 
-		dispatchEvent:function(type, params){
+		dispatchEvent:function(){
+			var type, params, e;
+			if(arguments[0].constructor === String){
+				type = arguments[0];
+				params = arguments[1];
+			}else{
+				e = arguments[0];
+				type = e.type;
+			}
+                
 			if(!EventDispatcher.listenHash[type]) return;
 			
 			var arr = [];
@@ -381,7 +399,9 @@
 			for(var i = 0; i < len; i++){
 				var obj = arr[i];
 				if(obj.target == this){
-					var e = new Event(type, params);
+					if(!e){
+						e = new Event(type, params);
+					}
 					e.target = this;
 					obj.callback.call(this, e);
 				}
@@ -3228,11 +3248,14 @@
 			function getPos(obj){
 				return {x:obj.pageX / self._canvasScale - self._canvas.offsetLeft, y:obj.pageY / self._canvasScale - self._canvas.offsetTop};
 			}
-			function dispatchTarget(targ, type, object){
+			function dispatchTarget(targ, e){
+				if(!e.willPropagate()){
+					return;
+				}
 				var tparent = targ.getParent();
-				targ.dispatchEvent(type, object);
+				targ.dispatchEvent(e);
 				if(tparent){
-					dispatchTarget(tparent, type, object);
+					dispatchTarget(tparent, e);
 				}
 			}
 			function findTarget(cont, x, y){
@@ -3267,7 +3290,8 @@
 
 					touchObj[id] = target;
 					if(target){
-						dispatchTarget(target, Event.TOUCH_START, {x:pos.x, y:pos.y});
+						var event = new Event(Event.TOUCH_START, {x:pos.x, y:pos.y});
+						dispatchTarget(target, event);
 					}
 				}
 
@@ -3292,7 +3316,8 @@
 					    pos = getPos(obj);
 					
 					if(target){
-						dispatchTarget(target, Event.TOUCH_MOVE, {x:pos.x, y:pos.y});	
+						var event = new Event(Event.TOUCH_MOVE, {x:pos.x, y:pos.y});
+						dispatchTarget(target, event);	
 					}
 				}
 
@@ -3316,7 +3341,8 @@
 					delete touchObj[id];
 
 					if(target){
-						dispatchTarget(target, Event.TOUCH_END, {x:pos.x, y:pos.y});	
+						var event = new Event(Event.TOUCH_END, {x:pos.x, y:pos.y});
+						dispatchTarget(target, event);
 					}
 				}
 				if(e.type == 'mouseup'){

@@ -1,5 +1,5 @@
 /**
- * Arctic.js v0.1.10
+ * Arctic.js v0.1.11
  * Copyright (c) 2012 DeNA Co., Ltd. 
  */
 (function(global){
@@ -1177,6 +1177,13 @@
 		getAlignY:function(){
 			return this._alignY;
 		},
+		/**
+		 * stageオブジェクトを取得
+		 * @retuns {Stage} Stageオブジェクト
+		 */
+		getStage: function(){
+			return display.Stage.instance;
+		},
 
 		_updateScreenRect:function(){
 			var tX = this._x + this._alignX * this._scaleX,
@@ -2263,6 +2270,29 @@
 			this.stop();
 		}
 	});
+
+
+	display.Stage = Class.create(display.DisplayObjectContainer,
+	{
+		initialize: function(width, height){
+			if(display.Stage.instance){
+				return display.Stage.instance;
+			}
+
+			display.Stage.instance = this;
+			this._stageWidth = width;
+			this._stageHeight = height;
+		},
+
+		getStageWidth: function(){
+			return this._stageWidth;
+		},
+
+		getStageHeight: function(){
+			return this._stageHeight;
+		}
+	});
+	display.Stage.instance = null;
 	
 	
 	display.TextField = Class.create(display.DisplayObject,
@@ -3170,7 +3200,7 @@
 			this._height = height;
 			this._canvas = document.getElementById(canvasId);
 			this._context = this._canvas.getContext('2d');
-			this._stage = new display.DisplayObjectContainer();
+			this._stage = new display.Stage(width, height);
 			this._timer = new Timer();
 			this._disableClearRect = (disableClearRect) ? true : false;
 	
@@ -3288,11 +3318,14 @@
 					var pos = getPos(obj),
 					    target = findTarget(self._stage, pos.x, pos.y);
 
-					touchObj[id] = target;
-					if(target){
-						var event = new Event(Event.TOUCH_START, {x:pos.x, y:pos.y});
-						dispatchTarget(target, event);
+					if(!target){
+						target = self._stage;
 					}
+
+					touchObj[id] = target;
+
+					var event = new Event(Event.TOUCH_START, {x:pos.x, y:pos.y});
+					dispatchTarget(target, event);
 				}
 
 				if(e.type == 'mousedown'){

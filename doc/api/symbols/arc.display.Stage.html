@@ -5,7 +5,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="generator" content="JsDoc Toolkit" />
 		
-		<title>JsDoc Reference - arc.anim.Timeline</title>
+		<title>JsDoc Reference - arc.display.Stage</title>
 
 		<style type="text/css">
 			/* default.css */
@@ -260,15 +260,17 @@ ul.inheritsList
 <!-- ============================== class title ============================ -->
 			<h1 class="classTitle">
 				
-				Class arc.anim.Timeline
+				Class arc.display.Stage
 			</h1>
 
 <!-- ============================== class summary ========================== -->			
 			<p class="description">
 				
+				<br />Extends
+					<a href="../symbols/arc.display.DisplayObjectContainer.html">arc.display.DisplayObjectContainer</a>.<br />
 				
 			
-				Flashのタイムラインを再現するクラス。KeyFrameAnimationで使われる
+				表示ツリーのルートとなる表示オブジェクト
 				
 				
 					<br /><i>Defined in: </i> <a href="../symbols/src/arctic.js.html">arctic.js</a>.
@@ -277,7 +279,7 @@ ul.inheritsList
 
 <!-- ============================== constructor summary ==================== -->			
 			
-			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class arc.anim.Timeline.">
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class arc.display.Stage.">
 				<caption>Class Summary</caption>
 				<thead>
 					<tr>
@@ -290,7 +292,7 @@ ul.inheritsList
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/arc.anim.Timeline.html#constructor">arc.anim.Timeline</a></b>(target, keyFrameObj, fps)
+								<b><a href="../symbols/arc.display.Stage.html#constructor">arc.display.Stage</a></b>(width, height)
 							</div>
 							<div class="description"></div>
 						</td>
@@ -306,7 +308,7 @@ ul.inheritsList
 			
 				
 				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class arc.anim.Timeline.">
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class arc.display.Stage.">
 					<caption>Method Summary</caption>
 					<thead>
 						<tr>
@@ -319,46 +321,18 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/arc.anim.Timeline.html#executeKeyFrame">executeKeyFrame</a></b>(index)
+								<div class="fixedFont"><b><a href="../symbols/arc.display.Stage.html#getStageHeight">getStageHeight</a></b>()
 								</div>
-								<div class="description">指定したフレームのにおけるプロパティの値をセット</div>
+								<div class="description">画面の縦幅を取得</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/arc.anim.Timeline.html#getTotalFrames">getTotalFrames</a></b>(value)
+								<div class="fixedFont"><b><a href="../symbols/arc.display.Stage.html#getStageWidth">getStageWidth</a></b>()
 								</div>
-								<div class="description">総フレーム数を取得
-return {Number} 総フレーム数</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/arc.anim.Timeline.html#setFps">setFps</a></b>(fps)
-								</div>
-								<div class="description">fpsをセット</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/arc.anim.Timeline.html#setTotalFrames">setTotalFrames</a></b>(totalFrames)
-								</div>
-								<div class="description">総フレーム数をセット</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/arc.anim.Timeline.html#update">update</a></b>(index, elapsed)
-								</div>
-								<div class="description">KeyFrameAnimationがENTER_FRAME毎に叩く。経過時間に応じてプロパティの値を適切に変化させる</div>
+								<div class="description">画面の横幅を取得</div>
 							</td>
 						</tr>
 					
@@ -366,6 +340,10 @@ return {Number} 総フレーム数</div>
 				</table>
 				
 				
+				
+				<dl class="inheritsList">
+				<dt>Methods borrowed from class <a href="../symbols/arc.display.DisplayObjectContainer.html">arc.display.DisplayObjectContainer</a>: </dt><dd><a href="../symbols/arc.display.DisplayObjectContainer.html#addChild">addChild</a>, <a href="../symbols/arc.display.DisplayObjectContainer.html#addChildAt">addChildAt</a>, <a href="../symbols/arc.display.DisplayObjectContainer.html#clearMask">clearMask</a>, <a href="../symbols/arc.display.DisplayObjectContainer.html#contains">contains</a>, <a href="../symbols/arc.display.DisplayObjectContainer.html#removeChild">removeChild</a>, <a href="../symbols/arc.display.DisplayObjectContainer.html#setChildIndex">setChildIndex</a>, <a href="../symbols/arc.display.DisplayObjectContainer.html#setMask">setMask</a></dd><dt>Methods borrowed from class <a href="../symbols/arc.display.DisplayObject.html">arc.display.DisplayObject</a>: </dt><dd><a href="../symbols/arc.display.DisplayObject.html#draw">draw</a>, <a href="../symbols/arc.display.DisplayObject.html#getAlignX">getAlignX</a>, <a href="../symbols/arc.display.DisplayObject.html#getAlignY">getAlignY</a>, <a href="../symbols/arc.display.DisplayObject.html#getAlpha">getAlpha</a>, <a href="../symbols/arc.display.DisplayObject.html#getHeight">getHeight</a>, <a href="../symbols/arc.display.DisplayObject.html#getParent">getParent</a>, <a href="../symbols/arc.display.DisplayObject.html#getRotation">getRotation</a>, <a href="../symbols/arc.display.DisplayObject.html#getScaleX">getScaleX</a>, <a href="../symbols/arc.display.DisplayObject.html#getScaleY">getScaleY</a>, <a href="../symbols/arc.display.DisplayObject.html#getStage">getStage</a>, <a href="../symbols/arc.display.DisplayObject.html#getVisible">getVisible</a>, <a href="../symbols/arc.display.DisplayObject.html#getWidth">getWidth</a>, <a href="../symbols/arc.display.DisplayObject.html#getX">getX</a>, <a href="../symbols/arc.display.DisplayObject.html#getY">getY</a>, <a href="../symbols/arc.display.DisplayObject.html#globalToLocal">globalToLocal</a>, <a href="../symbols/arc.display.DisplayObject.html#localToGlobal">localToGlobal</a>, <a href="../symbols/arc.display.DisplayObject.html#setAlpha">setAlpha</a>, <a href="../symbols/arc.display.DisplayObject.html#setHeight">setHeight</a>, <a href="../symbols/arc.display.DisplayObject.html#setRotation">setRotation</a>, <a href="../symbols/arc.display.DisplayObject.html#setScaleX">setScaleX</a>, <a href="../symbols/arc.display.DisplayObject.html#setScaleY">setScaleY</a>, <a href="../symbols/arc.display.DisplayObject.html#setVisible">setVisible</a>, <a href="../symbols/arc.display.DisplayObject.html#setWidth">setWidth</a>, <a href="../symbols/arc.display.DisplayObject.html#setX">setX</a>, <a href="../symbols/arc.display.DisplayObject.html#setY">setY</a></dd><dt>Methods borrowed from class <a href="../symbols/arc.EventDispatcher.html">arc.EventDispatcher</a>: </dt><dd><a href="../symbols/arc.EventDispatcher.html#addEventListener">addEventListener</a>, <a href="../symbols/arc.EventDispatcher.html#dispatchEvent">dispatchEvent</a>, <a href="../symbols/arc.EventDispatcher.html#removeEventListener">removeEventListener</a></dd>
+				</dl>
 				
 			
 <!-- ============================== events summary ======================== -->
@@ -379,7 +357,7 @@ return {Number} 総フレーム数</div>
 				</div>
 				
 				<div class="fixedFont">
-						<b>arc.anim.Timeline</b>(target, keyFrameObj, fps)
+						<b>arc.display.Stage</b>(width, height)
 				</div>
 				
 				<div class="description">
@@ -395,22 +373,16 @@ return {Number} 総フレーム数</div>
 						<dt class="heading">Parameters:</dt>
 						
 							<dt>
-								<span class="light fixedFont">{Object}</span>  <b>target</b>
+								<span class="light fixedFont">{Number}</span>  <b>width</b>
 								
 							</dt>
-								<dd>変化させるtarget。変化させるプロパティのgetter/setterが実装されている必要がある。getterはgetProp1、setterはsetProp1といったような形式</dd>
+								<dd>画面の横幅</dd>
 						
 							<dt>
-								<span class="light fixedFont">{Object}</span>  <b>keyFrameObj</b>
+								<span class="light fixedFont">{Number}</span>  <b>height</b>
 								
 							</dt>
-								<dd>各フレームにおけるプロパティの値を定義したObject</dd>
-						
-							<dt>
-								 <b>fps</b>
-								
-							</dt>
-								<dd></dd>
+								<dd>画面の縦幅</dd>
 						
 						</dl>
 					
@@ -433,15 +405,15 @@ return {Number} 総フレーム数</div>
 					Method Detail
 				</div>
 				
-					<a name="executeKeyFrame"> </a>
+					<a name="getStageHeight"> </a>
 					<div class="fixedFont">
 					
-					
-					<b>executeKeyFrame</b>(index)
+					<span class="light">{Number}</span>
+					<b>getStageHeight</b>()
 					
 					</div>
 					<div class="description">
-						指定したフレームのにおけるプロパティの値をセット
+						画面の縦幅を取得
 						
 						
 					</div>
@@ -449,171 +421,48 @@ return {Number} 総フレーム数</div>
 					
 					
 						
+						
+						
+						
+						
 							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
+							<dt class="heading">Returns:</dt>
 							
-								<dt>
-									<span class="light fixedFont">{int}</span> <b>index</b>
-									
-								</dt>
-								<dd>フレームインデックス</dd>
+								<dd><span class="light fixedFont">{Number}</span> 画面の縦幅</dd>
 							
 							</dl>
-						
-						
-						
-						
 						
 						
 						
 
 					<hr />
 				
-					<a name="getTotalFrames"> </a>
+					<a name="getStageWidth"> </a>
 					<div class="fixedFont">
 					
-					
-					<b>getTotalFrames</b>(value)
+					<span class="light">{Number}</span>
+					<b>getStageWidth</b>()
 					
 					</div>
 					<div class="description">
-						総フレーム数を取得
-return {Number} 総フレーム数
+						画面の横幅を取得
 						
 						
 					</div>
 					
 					
 					
+						
+						
+						
+						
 						
 							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
+							<dt class="heading">Returns:</dt>
 							
-								<dt>
-									<b>value</b>
-									
-								</dt>
-								<dd></dd>
+								<dd><span class="light fixedFont">{Number}</span> 画面の横幅</dd>
 							
 							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="setFps"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>setFps</b>(fps)
-					
-					</div>
-					<div class="description">
-						fpsをセット
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<span class="light fixedFont">{Number}</span> <b>fps</b>
-									
-								</dt>
-								<dd>fps</dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="setTotalFrames"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>setTotalFrames</b>(totalFrames)
-					
-					</div>
-					<div class="description">
-						総フレーム数をセット
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<span class="light fixedFont">{int}</span> <b>totalFrames</b>
-									
-								</dt>
-								<dd>総フレーム数</dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="update"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>update</b>(index, elapsed)
-					
-					</div>
-					<div class="description">
-						KeyFrameAnimationがENTER_FRAME毎に叩く。経過時間に応じてプロパティの値を適切に変化させる
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<span class="light fixedFont">{int}</span> <b>index</b>
-									
-								</dt>
-								<dd>フレームインデックス</dd>
-							
-								<dt>
-									<span class="light fixedFont">{Number}</span> <b>elapsed</b>
-									
-								</dt>
-								<dd>経過時間</dd>
-							
-							</dl>
-						
-						
-						
-						
 						
 						
 						
@@ -632,7 +481,7 @@ return {Number} 総フレーム数
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Mon Sep 03 2012 14:40:38 GMT+0900 (JST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Mon Sep 03 2012 14:40:39 GMT+0900 (JST)
 		</div>
 	</body>
 </html>

@@ -264,7 +264,9 @@
 				}
 			}
 		},
-
+        /**
+         * イベントの伝播を止める
+         */
         stopPropagation: function(){
             this._willPropagate = false;
         },
@@ -2273,7 +2275,16 @@
 
 
 	display.Stage = Class.create(display.DisplayObjectContainer,
+    /** @lends arc.display.Stage.prototype */	
 	{
+        /**
+		 * @class 表示ツリーのルートとなる表示オブジェクト
+		 * @constructs
+		 * @augments arc.display.DisplayObjectContainer
+         * @param {Number} width 画面の横幅
+         * @param {Number} height 画面の縦幅
+		 * @description 
+		 */
 		initialize: function(width, height){
 			if(display.Stage.instance){
 				return display.Stage.instance;
@@ -2283,11 +2294,17 @@
 			this._stageWidth = width;
 			this._stageHeight = height;
 		},
-
+        /**
+         * 画面の横幅を取得
+         * @returns {Number} 画面の横幅
+         */
 		getStageWidth: function(){
 			return this._stageWidth;
 		},
-
+        /**
+         * 画面の縦幅を取得
+         * @returns {Number} 画面の縦幅
+         */
 		getStageHeight: function(){
 			return this._stageHeight;
 		}

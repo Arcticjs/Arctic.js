@@ -129,7 +129,7 @@
 	 * @constant {String} isiOS3
 	 * @memberOf arc.ua
 	 */
-	ua.isiOS3	= ((ua.isiPhone || ua.isiPad) && /OS\s3/.test(navigator.userAgent));
+	ua.isiOS3	= (ua.isiOS && /OS\s3/.test(navigator.userAgent));
 	/**
 	 * Androidからのアクセスかどうか
 	 * @name isAndroid
@@ -756,7 +756,7 @@
 			canvas.height = height;
 			var ctx = canvas.getContext('2d');
 			ctx.drawImage(this._data, 0, 0);
-	
+
 			var originData = ctx.getImageData(0, 0, width, height);
 			var newData = ctx.createImageData(width, height);
 	
@@ -768,10 +768,15 @@
 				for(var j = 0; j < width; j++){
 					var index = j * 4 + i * 4 * width;
 					
-					newData.data[index] = (red - originData.data[index]) * density + originData.data[index];
-					newData.data[index + 1] = (blue - originData.data[index + 1]) * density + originData.data[index + 1];
-					newData.data[index + 2] = (green - originData.data[index + 2]) * density + originData.data[index + 2];
-					newData.data[index + 3] = originData.data[index + 3];
+					var r = (red   - originData.data[index])     * density + originData.data[index];
+					var b = (green - originData.data[index + 1]) * density + originData.data[index + 1];
+					var g = (blue  - originData.data[index + 2]) * density + originData.data[index + 2];
+					var a = originData.data[index + 3];	
+					
+					newData.data[index]     = (r * a / 255) | 0;
+					newData.data[index + 1] = (b * a / 255) | 0;
+					newData.data[index + 2] = (g * a / 255) | 0;
+					newData.data[index + 3] = a;
 				}
 			}
 			ctx.putImageData(newData, 0, 0);
@@ -2712,7 +2717,7 @@
 				case Transition.SINE_OUT :
 					return getSineOut;
 				case Transition.SINE_INOUT:
-					return getSinInOut;
+					return getSineInOut;
 				case Transition.CIRC_IN:
 					return getCircIn;
 				case Transition.CIRC_OUT:

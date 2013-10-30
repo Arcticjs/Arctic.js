@@ -1,0 +1,25 @@
+<html>
+<head>
+  <link rel="stylesheet" href="lib/mocha.css">
+</head>
+<body>
+  <div id="mocha"></div>
+  <script src="../arctic.js"></script>
+  <script src="lib/mocha.js"></script>
+  <script src="lib/chai.js"></script>
+  <script>
+    mocha.setup('bdd');
+    var assert = chai.assert;
+    // expectの機能を読み込み
+    var expect = chai.expect;
+    // shouldの機能を読み込み
+    chai.Should();
+  </script>
+  <script src="test.display.js"></script>
+  <script>
+    mocha.checkLeaks();
+    if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
+    else { mocha.run(); }
+  </script>
+</body>
+</html>

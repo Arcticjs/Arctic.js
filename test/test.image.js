@@ -10,14 +10,13 @@ describe('display', function(){
   });
 
   describe('Image', function(){
-
-    it('returns actual size', function(){
+    it('should return actual size', function(){
       var image = new arc.display.Image(img);
       expect(image.getWidth()).to.eql(347);
       expect(image.getHeight()).to.eql(287);
     });
 
-    it('changes its scale', function(){
+    it('should change its scale', function(){
       var image = new arc.display.Image(img);
       image.changeSize(500, 500);
       expect(image.getWidth()).to.eql(500);

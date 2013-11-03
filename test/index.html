@@ -1,5 +1,7 @@
+<!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
   <link rel="stylesheet" href="lib/mocha.css">
 </head>
 <body>
@@ -15,7 +17,9 @@
     // shouldの機能を読み込み
     chai.Should();
   </script>
-  <script src="test.display.js"></script>
+  <script src="test.image.js"></script>
+  <script src="test.display_object.js"></script>
+  <script src="test.display_object_container.js"></script>
   <script>
     mocha.checkLeaks();
     if (window.mochaPhantomJS) { mochaPhantomJS.run(); }

@@ -18,51 +18,55 @@ DOWNLOAD
 GETTING STARTED
 -----------
 1. Download Arctic.js
+
 2. Load Arctic.js
 ```html
 <html>
 <head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-<title>Game</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title>Game</title>
+</head>
 <body>
-<canvas id="canvas"></canvas>
-<script type="text/javascript" src="js/arctic.js"></script>
-<script type="text/javascript" src="js/game.js"></script>
+    <canvas id="canvas"></canvas>
+    <script type="text/javascript" src="js/arctic.js"></script>
+    <script type="text/javascript" src="js/game.js"></script>
 </body>
 </html>
 ```
+
 3. Create a game class in your JavaScript file
 ```js
 var GameMain = arc.Class.create(arc.Game, {
-  initialize:function(params){
-    console.log(params.hp);  
-  },
-  //This method is called in every frame
-  update:function(){
+    initialize:function(params){
+        console.log(params.hp);
+    },
+    //This method is called in every frame
+    update:function(){
 
-  }
+    }
 });
 ```
+
 4. Use the game class
 ```js
 window.addEventListener('DOMContentLoaded', function(e){
-  //Pass the width and height of your game and id of the canvas element
-  var system = new arc.System(320, 416, 'canvas');
+    //Pass the width and height of your game and id of the canvas element
+    var system = new arc.System(320, 416, 'canvas');
 
-  //The second parameter will be passed as a parameter of initialize method in the game class
-  system.setGameClass(GameMain, {hp:100, mp:100});
+    //The second parameter will be passed as a parameter of initialize method in the game class
+    system.setGameClass(GameMain, {hp:100, mp:100});
 
-  system.addEventListener(arc.Event.PROGRESS, function(e){
-      console.log(e.loaded + ", " + e.total);
-  });
+    system.addEventListener(arc.Event.PROGRESS, function(e){
+        console.log(e.loaded + ", " + e.total);
+    });
 
-  system.addEventListener(arc.Event.COMPLETE, function(){
-      console.log('loaded');
-  });
+    system.addEventListener(arc.Event.COMPLETE, function(){
+        console.log('loaded');
+    });
 
-  //After finishing its loading, an instance of the game class will be created automatically
-  system.load(['a.png', 'b.png']);
+    //After finishing its loading, an instance of the game class will be created automatically
+    system.load(['a.png', 'b.png']);
 }, false);
 ```
 

@@ -1,0 +1,30 @@
+{
+  "name": "Arctic.js",
+  "version": "0.1.11",
+  "description": "A JavaScript game engine for Smartphone",
+  "main": "arctic.js",
+  "directories": {
+    "doc": "doc",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/DeNADev/Arctic.js.git"
+  },
+  "keywords": [
+    "arctic.js"
+  ],
+  "author": "Ryo Chikazawa",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "gitHead": "3e413ab501c60eaa283b2c676603f5bfaed31747",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-jsdoc": "~0.4.2",
+    "grunt-yui-compressor": "~0.3.0"
+  }
+}

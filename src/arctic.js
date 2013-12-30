@@ -4,7 +4,7 @@
  */
 (function(global){
 	/**
-	 * 引数をカンマ区切りで表示。console.logのラッパー
+	 * Wrapper of console.log. It shows arguments in a comma separated style.
 	 * @memberOf arc.util
 	 */
 	function trace(){
@@ -34,7 +34,7 @@
 	}
 	
 	/**
-	 * 配列にコピー。配列ではないものも配列にして返す
+	 * It copies the elements of the passed array and also converts a non-array argument to an array.
 	 * @memberOf arc.util
 	 */ 
 	function copyArray(src){
@@ -80,8 +80,8 @@
 	}
 
 	/**
-	 * @name arc.util
-	 * @namespace 汎用関数
+	 * @namespace arc.util
+	 * @description A group of utility functions.
 	 */
 	var util = {
 		trace	: trace,
@@ -91,61 +91,61 @@
 	
 	
 	/**
-	 * @name arc.ua
-	 * @namespace ユーザーエージェントから機種を判別する
+	 * @namespace arc.ua
+	 * @description It provides a set of properties which determine the platform from the UserAgent.
 	 */
 	var ua = {};
 	/**
-	 * iPhoneからのアクセスかどうか
+	 * Is the platform iPhone?
 	 * @name isiPhone
 	 * @constant {String} isiPhone
 	 * @memberOf arc.ua
 	 */
 	ua.isiPhone	= /iPhone/i.test(navigator.userAgent);
 	/**
-	 * iPhone4からのアクセスかどうか
+	 * Is the platform iPhone4?
 	 * @name isiPhone4
 	 * @constant {String} isiPhone4
 	 * @memberOf arc.ua
 	 */
 	ua.isiPhone4	= (ua.isiPhone && window.devicePixelRatio == 2);
 	/**
-	 * iPadからのアクセスかどうか
+	 * Is the platform iPad?
 	 * @name isiPad
 	 * @constant {String} isiPad
 	 * @memberOf arc.ua
 	 */
 	ua.isiPad	= /iPad/i.test(navigator.userAgent);
 	/**
-	 * iOSからのアクセスかどうか
+	 * Is the platform iOS?
 	 * @name isiOS
 	 * @constant {String} isiOS
 	 * @memberOf arc.ua
 	 */
 	ua.isiOS	= ua.isiPhone || ua.isiPad;
 	/**
-	 * iOS3代からのアクセスかどうか
+	 * Is the platform iOS3?
 	 * @name isiOS3
 	 * @constant {String} isiOS3
 	 * @memberOf arc.ua
 	 */
 	ua.isiOS3	= (ua.isiOS && /OS\s3/.test(navigator.userAgent));
 	/**
-	 * Androidからのアクセスかどうか
+	 * Is the platform Android?
 	 * @name isAndroid
 	 * @constant {String} isiAndroid
 	 * @memberOf arc.ua
 	 */
 	ua.isAndroid	= /android/i.test(navigator.userAgent);
 	/**
-	 * Android2.1からのアクセスかどうか
+	 * Is the platform Android2.1?
 	 * @name isAndroid2_1
 	 * @constant {String} isAndroid2_1
 	 * @memberOf arc.ua
 	 */
 	ua.isAndroid2_1	= /android\s2\.1/i.test(navigator.userAgent);
 	/**
-	 * モバイル端末からのアクセスかどうか
+	 * Is the platform a mobile?
 	 * @name isMobile
 	 * @constant {String} isMobile
 	 * @memberOf arc.ua
@@ -158,21 +158,21 @@
 	
 	/**
 	 * @name arc.Class
-	 * @class クラスを作成するクラス
+	 * @class This class generates a class.
 	 */
 	var Class = (function(){
 		var newclass = function(){};
 		/**
-		 * クラスを生成する
+		 * Generate a class from the class definition.
 		 * @name create
-	 	 * @param {Object} definition クラス定義
+	 	 * @param {Object} definition class definition object.
 	 	 * @memberof arc.Class
 	 	 */ 
 		/**
-		 * クラスを生成する
+		 * Generate a class from a parent class and the class definition.
 		 * @name create^2
-		 * @param {Object} parent　親クラス
-	 	 * @param {Object} definition クラス定義
+		 * @param {Object} parent　parent class.
+	 	 * @param {Object} definition class definition object.
 	 	 * @memberof arc.Class
 	 	 */ 
 		function create(){
@@ -245,13 +245,13 @@
 	/** @lends arc.Event.prototype */
 	{
 		type:null, target:null,
-        _willPropagate: true,
+		_willPropagate: true,
 		/**
-		 * @class イベント発生時にリスナーに渡されるイベントオブジェクトを生成する基本クラス
+		 * @class Event Object which is delivered to the listener.
 		 * @constructs
-		 * @description イベントオブジェクトを生成
-		 * @param {String} type イベント種別
-		 * @param {Object} params イベントオブジェクトに加えたいプロパティ
+		 * @description Create an event object.
+		 * @param {String} type A type of the event.
+		 * @param {Object} params Properties of the event object.
 		 */ 
 		initialize:function(type, params){
 			this.type = type;
@@ -264,16 +264,16 @@
 				}
 			}
 		},
-        /**
-         * イベントの伝播を止める
-         */
-        stopPropagation: function(){
-            this._willPropagate = false;
-        },
+		/**
+		 * Stop event propagation.
+		 */
+		stopPropagation: function(){
+			this._willPropagate = false;
+		},
 
-        willPropagate: function(){
-            return this._willPropagate;
-        }
+		willPropagate: function(){
+			return this._willPropagate;
+		}
 	});
 	/**
 	 * @name PROGRESS
@@ -325,7 +325,7 @@
 	Event.TOUCH_MOVE = 'TOUCH_MOVE';
 	/**
 	 * @name TOUCH_END
-	 * @constant {String} TOUCH_END;
+	 * @constant {String} TOUCH_END
 	 * @memberOf arc.Event
 	 */
 	Event.TOUCH_END = 'TOUCH_END';
@@ -333,15 +333,15 @@
 	
 	/**
 	 * @name arc.EventDispatcher
-	 * @class イベントを送出するすべての基本クラス
+	 * @class Base class for all classes which dispatch events.
 	 */
 	var EventDispatcher = Class.create(
 	/** @lends arc.EventDispatcher.prototype */
 	{
 		/**
-		 * イベントリスナーオブジェクトを EventDispatcher オブジェクトに登録し、リスナーがイベントの通知を受け取るようにする
-		 * @param {String} type イベントのタイプ
-		 * @param {Function} callback コールバック関数
+		 * Registers an event listener object to EventDispatcher object so that the listener receives the notification.
+		 * @param {String} type The type of event.
+		 * @param {Function} callback The listener function.
 		 */
 		addEventListener:function(type, callback){
 			var arr = EventDispatcher.listenHash[type];
@@ -352,9 +352,9 @@
 			EventDispatcher.listenHash[type].push({target : this, callback : callback});
 		},
 		/**
-		 * EventDispatcher オブジェクトからリスナーを削除
-		 * @param {String} type イベントのタイプ
-		 * @param {Function} callback コールバック関数
+		 * Removes a listener from the EventDispatcher object.
+		 * @param {String} type The type of event.
+		 * @param {Function} callback The listener function.
 		 */
 		removeEventListener:function(type, callback){
 			var arr = EventDispatcher.listenHash[type];
@@ -377,8 +377,8 @@
 			}
 		},
 		/**
-		 * イベントをイベントフローに送出
-		 * @param {arc.Event} イベントオブジェクト
+		 * Dispatches an event to the event flow.
+		 * @param {arc.Event} Event object
 		 */ 
 		dispatchEvent:function(){
 			var type, params, e;
@@ -389,7 +389,7 @@
 				e = arguments[0];
 				type = e.type;
 			}
-                
+
 			if(!EventDispatcher.listenHash[type]) return;
 			
 			var arr = [];
@@ -418,35 +418,36 @@
 	{
 		_startTime:0, _isCounting:false, _elapsedTime:0,
 		/**
-		 * @class ランループを制御するタイマークラス。クラスメソッドtickを実行する事で時間を進め、生成されたインスタンスはその時間を元に動作する。
-		 * @description タイマーインスタンスを生成
+		 * @class The Timer class is used for calculating a time. The class method tick() is called in the main run loop.
+		 * @description Creates a Timer instance.
 		 * @constructs
 		 */
 		initialize:function(){
 			
 		},
 		/**
-		 * タイマーを開始
+		 * Starts the timer.
 		 */ 
 		start:function(){
 			this._isCounting = true;
 			this._startTime = Timer.time;	
 		},
 		/**
-		 * タイマーを停止
+		 * Stops the timer.
 		 */ 
 		stop:function(){
 			this._isCounting = false;
 		},
 		/**
-		 * タイマーをリセット
+		 * Resets the timer.
 		 */ 
 		reset:function(){
 			this._isCounting = true;
 			this._startTime = Timer.time;	
 		},
 		/**
-		 * startしてからの経過時間を取得。
+		 * Returns the elapsed time since the timer started.
+		 * @returns {Number} The elapsed time
 		 */ 
 		getElapsed:function(){
 			if(this._isCounting){
@@ -457,7 +458,7 @@
 	});
 	Timer.time = 0;
 	/**
-	 * タイマーの時間を進める
+	 * Progresses the time of the timer.
 	 * @name tick
 	 * @memberOf arc.Timer
 	 */
@@ -474,12 +475,12 @@
 		_updateFunc:null,
 	
 		/**
-		 * @class Timerオブジェクトをベースに指定した遅延時間にイベントを発行するCountTimerオブジェクトを生成するクラス
+		 * @class The CountTimer object dispatches the event at the times that was registered. It is used for an altanative for setInterval and setTimeout.
 		 * @constructs
 		 * @augments arc.EventDispatcher
-		 * @description CountTimerオブジェクトを生成
-		 * @param {Number} delay ミリ秒単位で指定したタイマーイベント間の遅延
-		 * @param {int} repeatCount 繰り返しの回数を指定。ゼロを指定すると、タイマーは無限に繰り返される。
+		 * @description Creates CountTimer object
+		 * @param {Number} delay A millisecond between the object dispatches events.
+		 * @param {int} repeatCount The total number of times the timer is set to run. If the repeat count set to 0, the timer runs indefinitely.
 		 */ 	
 		initialize:function(delay, repeatCount){
 			this._timer = new Timer();
@@ -487,14 +488,14 @@
 			this._repeatCount = (repeatCount) ? repeatCount : 0;
 		},
 		/**
-		 * タイマーをリセット
+		 * Resets the timer.
 		 */ 
 		reset:function(){
 			this._currentCount = 0;
 			this.stop();
 		},
 		/**
-		 * タイマーを開始
+		 * Starts the timer.
 		 */
 		start:function(){
 			this._timer.start();
@@ -515,7 +516,7 @@
 			}
 		},
 		/**
-		 * タイマーを停止
+		 * Stops the timer.
 		 */ 
 		stop:function(){
 			this._timer.stop();
@@ -525,29 +526,29 @@
 			}
 		},
 		/**
-		 * 遅延時間を設定
-		 * @param {Number} value ミリ秒単位で指定したタイマーイベント間の遅延
+		 * Sets the delay.
+		 * @param {Number} value A millisecond between the object dispatches events.
 		 */
 		setDelay:function(value){
 			this._delay = value;
 		},
 		/**
-		 * 遅延時間を取得
-		 * @returns {Number} タイマーイベント間の遅延（ミリ秒）
+		 * Returns the delay.
+		 * @returns {Number} A millisecond between the object dispatches events.
 		 */
 		getDelay:function(){
 			return this._delay;
 		},
 		/**
-		 * 繰り返しの回数を設定
-		 * @param {int} repeatCount 繰り返しの回数を指定。ゼロを指定すると、タイマーは無限に繰り返される。
+		 * Set the repeatCount.
+		 * @param {int} repeatCount The total number of times the timer is set to run. If the repeat count set to 0, the timer runs indefinitely.
 		 */
 		setRepeatCount:function(value){
 			this._repeatCount = value;
 		},
 		/**
-		 * 繰り返しの回数を取得
-		 * @returns {int} 繰り返しの回数
+		 * Returns the repeatCount.
+		 * @returns {int} The total number of times the timer is set to run. If the repeat count set to 0, the timer runs indefinitely.
 		 */
 		getRepeatCount:function(){
 			return this._repeatCount;
@@ -563,19 +564,19 @@
 		_request:null, _jsonResponse:null, _loadedCallBack:null,
 	
 		/**
-		 * @class Ajax通信を行う
+		 * @class Ajax class performs asynchronous HTTP request.
 		 * @constructs
 		 * @augments arc.EventDispatcher
-		 * @description Ajaxオブジェクトを生成
+		 * @description Creats an Ajax object
 		 */ 
 		initialize:function(){
 			this._request = new XMLHttpRequest();
 			this._loadedCallBack = bind(this._loaded, this);
 		},
 		/**
-		 * 通信を開始。終了時にEvent.COMPLETEが送出される
-		 * @param {String} url 通信先のURL
-		 * @param {Object} params パラメーター
+		 * Sends a HTTP request asynchronously. A COMPLETE event will be dispatched when it gets the the response.
+		 * @param {String} url A URL that is send the request to.
+		 * @param {Object} params Parameters
 		 */ 
 		load:function(url, params){
 			this._url = url;
@@ -601,22 +602,22 @@
 			this._request.removeEventListener('readystatechange', this._loadedCallBack, false);
 		},
 		/**
-		 * 通信のメソッドGET/POSTを設定
-		 * @param {String} method メソッド
+		 * Set the HTTP method.
+		 * @param {String} method HTTP method
 		 */ 
 		setMethod:function(method){
 			this._method = method;
 		},
 		/**
-		 * responseTextを取得
-		 * @returns {String} AjaxのreponseText
+		 * Returns responseText
+		 * @returns {String} A reponseText of XHR object
 		 */ 
 		getResponseText:function(){
 			return this._request.responseText;
 		},
 		/**
-		 * responseをJSONとして取得
-		 * @returns {Object} JSONオブジェクト
+		 * Returns response in JSON object.
+		 * @returns {Object} JSON Object
 		 */
 		getResponseJSON:function(){
 			if(!this._jsonResponse){
@@ -625,8 +626,8 @@
 			return this._jsonResponse;
 		},
 		/**
-		 * URLを取得
-		 * @returns {String} 読み込んだURL
+		 * Retuns the URL
+		 * @returns {String} URL
 		 */
 		getURL:function(){
 			return this._url;
@@ -654,12 +655,12 @@
 		_lx:null, _ly:null, _lwidth:null, _lheight:null, _hasLocalPos:false,
 	
 		/**
-		 * @class 画像を扱う
+		 * @class Image class deals with a image.
 		 * @constructs
 		 * @augments arc.EventDispatcher
-		 * @description Imageオブジェクトを生成
-		 * @param {HTMLImageElement} data HTMLImageElementまたは画像パス
-		 * @param {Number} localPosArr 利用するローカル座標とサイズを配列で指定します。(オプション）
+		 * @description Creates Image Object
+		 * @param {HTMLImageElement} data HTMLImageElement object or path to a image
+		 * @param {Array} localPosArr An array includes local positions and sizes(not required).
 		 *
 		 */ 
 		initialize:function(data, localPosArr){
@@ -685,8 +686,8 @@
 			}
 		},
 		/**
-		 * 画像を複製
-		 * @returns {Image} 複製された画像
+		 * Duplicates the image.
+		 * @returns {Image} The duplicated image
 		 */ 
 		duplicate:function(){
 			var newImg = new display.Image();
@@ -694,19 +695,19 @@
 			return newImg;
 		},
 		/**
-		 * 画像の拡大させる
-		 * @param {Number} xscale x方向拡大率
-		 * @param {Number} yscale y方向拡大率
-		 * @returns {Image} 拡大後のImageオブジェクト
+		 * Creates new image in a specified scale.
+		 * @param {Number} xscale A horizontal scale for a new image
+		 * @param {Number} yscale A vertical scale for a new image
+		 * @returns {Image} The new Image object
 		 */ 
 		changeScale:function(xscale, yscale){
 			return this.changeSize(this._width * xscale, this._height * yscale);
 		},
 		/**
-		 * 画像のサイズを変化させる
-		 * @param {Number} width 変化後の幅
-		 * @param {Number} height 変化後の高さ
-		 * @returns {Image} 拡大後のImageオブジェクト
+		 * Creates new image in a specified size.
+		 * @param {Number} width A width for a new image
+		 * @param {Number} height A height for a new image
+		 * @returns {Image} The new Image object
 		 */ 
 		changeSize:function(nwidth, nheight){
 			var canvas = document.createElement('canvas'),
@@ -744,9 +745,9 @@
 	
 		},
 		/**
-		 * 色を変える
-		 * @param {int} color カラー
-		 * @param {Number} density カラーの適用率
+		 * Changes its color.
+		 * @param {int} color A color
+		 * @param {Number} density A ratio of its application
 		 */ 
 		changeColor:function(color, density){
 			var width = this._data.width;
@@ -785,10 +786,10 @@
 			return this;
 		},
 		/**
-		 * 描画を行う
-		 * @param {Number} x 描画を行うx座標
-		 * @param {Number} y 描画を行うy座標
-		 * @param {Number} rotation 回転角度
+		 * Draws the image.
+		 * @param {Number} x A horizontal position
+		 * @param {Number} y A vartical position
+		 * @param {Number} rotation A rotation
 		 */ 
 		draw:function(x, y, rotation){
 			//ローカル座標が指定されていたらクロップする
@@ -811,12 +812,12 @@
 			ctx.restore();
 		},
 		/**
-		 * サイズを指定して描画
-		 * @param {Number} x 描画を行うx座標
-		 * @param {Number} y 描画を行うy座標
-		 * @param {Number} width 描画する横幅
-		 * @param {Number} height 描画する高さ
-		 * @param {Number} rotation 回転角度
+		 * Draws the image in a specified size.
+		 * @param {Number} x A horizontal position
+		 * @param {Number} y A vartical position
+		 * @param {Number} width A width of the image
+		 * @param {Number} height A height of the image
+		 * @param {Number} rotation A rotation
 		 */
 		drawSize:function(x, y, width, height, rotation){
 			//ローカル座標が指定されていたらクロップする
@@ -849,16 +850,16 @@
 			ctx.restore();
 		},
 		/**
-		 * 切り取りエリアとサイズを指定して描画
-		 * @param {Number} x1 切り取りを行うx座標
-		 * @param {Number} y1 切り取りを行うy座標
-		 * @param {Number} width1 切り取る横幅
-		 * @param {Number} height1 切り取る高さ
-		 * @param {Number} x2 描画を行うx座標
-		 * @param {Number} y2 描画を行うy座標
-		 * @param {Number} width2 描画する横幅
-		 * @param {Number} height2 描画する高さ
-		 * @param {Number} rotation 回転角度
+		 * Draws the image within the specified cropping area.
+		 * @param {Number} x1 A horizontal position of the cropping area
+		 * @param {Number} y1 A vartical position of the cropping area
+		 * @param {Number} width1 A width of the cropping area
+		 * @param {Number} height1 A height of the cropping area
+		 * @param {Number} x2 A horizontal position where to draw the image
+		 * @param {Number} y2 A vartical position where to draw the image
+		 * @param {Number} width2 A width of the image
+		 * @param {Number} height2 A height of the image
+		 * @param {Number} rotation A rotation of the image
 		 */	
 		drawCrop:function(x1, y1, width1, height1, x2, y2, width2, height2, rotation){
 			if(this._hasLocalPos && this._frameWidth){
@@ -899,36 +900,36 @@
 			ctx.restore();
 		},
 		/**
-		 * 連続フレームPNGの場合１フレームの横幅を指定する
-		 * @param {Number} frameWidth １フレームの横幅
+		 * Sets a width of a frame for a image used for a sprite animation.
+		 * @param {Number} frameWidth A width of a frame
 		 */ 
 		setFrameWidth:function(value){
 			this._frameWidth = value;
 		},
 		/**
-		 * 連続フレームPNGの場合１フレームの横幅を返す
-		 * @returns {Number} １フレームの横幅
+		 * Returns a width of a frame.
+		 * @returns {Number} A width of a frame
 		 */
 		getFrameWidth:function(){
 			return this._frameWidth;
 		},
 		/**
-		 * 横幅を取得
-		 * @returns {Number} 横幅
+		 * Returns a width.
+		 * @returns {Number} A width
 		 */ 
 		getWidth:function(){
 			return this._width;
 		},
 		/**
-		 * 高さを取得
-		 * @returns {Number} 高さ
+		 * Returns a height.
+		 * @returns {Number} A height
 		 */ 
 		getHeight:function(){
 			return this._height;
 		},
 		/**
-		 * 画像のURLを取得
-		 * @returns {Number} 画像のURL
+		 * Returns a url of the image
+		 * @returns {Number} A URL of the image.
 		 */ 
 		getPath:function(){
 			return this._path;
@@ -943,11 +944,11 @@
 		_data:null, _parent:null,
 		_x:0, _y:0, _width:null, _height:null, _visible:true, _scaleX:1, _scaleY:1, _alpha:1, _rotation:0, _alignX:0, _alignY:0, _screenRect:[],
 		/**
-		 * @class 表示オブジェクトの基本クラス
+		 * @class A base class for all classes that display something.
 		 * @constructs
-		 * @param {Image} data 表示するImageオブジェクト
+		 * @param {Image} data Image object which is displayed
 		 * @augments arc.EventDispatcher
-		 * @description 表示オブジェクト生成
+		 * @description Creates DisplayObject.
 		 */
 		initialize:function(data){
 			if(!data) return;
@@ -957,10 +958,10 @@
 			this._screenRect = [0, 0, this._width, this._height];
 		},
 		/**
-		 * ローカルの座標系からグローバルの座標系に変換
-		 * @param {Number} x x座標
-		 * @param {Number} y y座標
-		 * @return {Array} グローバルの座標系に変換したx座標とy座標を内包した配列
+		 * Converts local positions to global positions.
+		 * @param {Number} x A local horizontal position
+		 * @param {Number} y A local vartical position
+		 * @return {Array} An array that includes global positions of x and y in [x, y].
 		 */ 
 		localToGlobal:function(x, y){
 			var targ = this, targX = x, targY = y;
@@ -977,10 +978,10 @@
 			return [returnX, returnY];
 		},
 		/**
-		 * グローバルの座標系からローカルの座標系に変換
-		 * @param {Number} x x座標
-		 * @param {Number} y y座標
-		 * @return {Array} ローカルの座標系に変換したx座標とy座標を内包した配列
+		 * Converts global positions to local positions.
+		 * @param {Number} x A global horizontal position
+		 * @param {Number} y A global vartical position
+		 * @return {Array} An array that includes local positions of x and y in [x, y].
 		 */ 
 		globalToLocal:function(x, y){
 			var parentArr = [];
@@ -1009,45 +1010,42 @@
 		hitTestObject:function(targ){
 			
 		},
-		/**
-		 * 描画を行う
-		 */ 
 		draw:function(){
 					
 		},
 		/**
-		 * x座標を指定
-		 * @param {Number} x x座標
+		 * Sets a horizontal position.
+		 * @param {Number} x A horizontal position
 		 */ 
 		setX:function(value){
 			this._x = value;
 			this._updateScreenRect();
 		},
 		/**
-		 * x座標を取得
-		 * @returns {Number} x座標
+		 * Returns the horizontal position.
+		 * @returns {Number} A horizontal position
 		 */
 		getX:function(){
 			return this._x;
 		},
 		/**
-		 * y座標を指定
-		 * @param {Number} y y座標
+		 * Sets a vartical position.
+		 * @param {Number} y A vartical position
 		 */ 
 		setY:function(value){
 			this._y = value;
 			this._updateScreenRect();
 		},
 		/**
-		 * y座標を取得
-		 * @returns {Number} y座標
+		 * Returns the vartical position.
+		 * @returns {Number} A vartical position
 		 */
 		getY:function(){
 			return this._y;
 		},
 		/**
-		 * 幅を指定
-		 * @param {Number} width 幅
+		 * Sets a width.
+		 * @param {Number} width A width
 		 */
 		setWidth:function(value){
 			if(!value) value = 0;
@@ -1058,15 +1056,15 @@
 			this._updateScreenRect();
 		},
 		/**
-		 * 幅を取得
-		 * @returns {Number} 幅
+		 * Returns the width.
+		 * @returns {Number} A width
 		 */
 		getWidth:function(){
 			return this._width;
 		},
 		/**
-		 * 高さを指定
-		 * @param {Number} height 高さ
+		 * Sets a height.
+		 * @param {Number} height A height
 		 */
 		setHeight:function(value){
 			if(!value) value = 0;
@@ -1077,15 +1075,15 @@
 			this._updateScreenRect();
 		},
 		/**
-		 * 高さを取得
-		 * @returns {Number} 高さ
+		 * Returns the height.
+		 * @returns {Number} A height
 		 */ 
 		getHeight:function(){
 			return this._height;
 		},
 		/**
-		 * 横の拡大率を指定
-		 * @param {Number} scaleX 横の拡大率
+		 * Sets a horizontal scale.
+		 * @param {Number} scaleX A horizontal scale
 		 */
 		setScaleX:function(value){
 			if(!value) value = 0;
@@ -1095,15 +1093,15 @@
 			this._updateScreenRect();
 		},
 		/**
-		 * 横の拡大率を取得
-		 * @returns {Number} 横の拡大率
+		 * Returns the horizontal scale.
+		 * @returns {Number} A horizontal scale
 		 */ 
 		getScaleX:function(){
 			return this._scaleX;
 		},
 		/**
-		 * 縦の拡大率を指定
-		 * @param {Number} scaleX 縦の拡大率
+		 * Sets a vartical scale.
+		 * @param {Number} scaleX A vartical scale
 		 */
 		setScaleY:function(value){
 			//if(value > 1) trace("exceed scale 1 :" + value);
@@ -1113,80 +1111,80 @@
 			this._updateScreenRect();
 		},
 		/**
-		 * 縦の拡大率を取得
-		 * @returns {Number} 縦の拡大率
+		 * Returns the vartical scale.
+		 * @returns {Number} A vartical scale
 		 */ 
 		getScaleY:function(){
 			return this._scaleY;
 		},
 		/**
-		 * 可視を指定
-		 * @param {Boolean} value
+		 * Sets a visibility.
+		 * @param {Boolean} A visibility
 		 */
 		setVisible:function(value){
 			this._visible = value;
 		},
 		/**
-		 * 可視を取得
-		 * @returns {Boolean} 可視
+		 * Returns the visibility.
+		 * @returns {Boolean} A visibility
 		 */
 		getVisible:function(){
 			return this._visible;
 		},
 		/**
-		 * 表示オブジェクトの親を取得
-		 * @returns
+		 * Returns the parent of this display object.
+		 * @returns {DisplayObject} The parent
 		 */ 
 		getParent:function(){
 			return this._parent;
 		},
 		/**
-		 * アルファ値を指定
-		 * @param {Number} alpha アルファ値
+		 * Sets an alpha.
+		 * @param {Number} An alpha
 		 */ 
 		setAlpha:function(value){
 			if(!value) value = 0;
 			this._alpha = value;
 		},
 		/**
-		 * アルファ値を取得
-		 * @returns {Number} アルファ値
+		 * Gets the alpha.
+		 * @returns {Number} An alpha
 		 */ 
 		getAlpha:function(){
 			return this._alpha;
 		},
 		/**
-		 * 回転角度を指定
-		 * @param {Number} rotation 回転角度
+		 * Sets a rotation.
+		 * @param {Number} A rotation in degree
 		 */
 		setRotation:function(value){
 			if(!value) value = 0;
 			this._rotation = value;
 		},
 		/**
-		 * 回転角度を取得
-		 * @returns {Number} 回転角度
+		 * Returns the rotation.
+		 * @returns {Number} A rotation in degree
 		 */
 		getRotation:function(){
 			return this._rotation;
 		},
 		/**
-		 * 原点からのx座標を取得
-		 * @returns {Number}　原点からのx座標
+		 * Returns a horizontal position from the origin.
+		 * @returns {Number} A horizontal position from the origin
 		 */
 		getAlignX:function(){
 			return this._alignX;
 		},
 		/**
-		 * 原点からのy座標を取得
-		 * @returns {Number}　原点からのy座標
+		 * Returns a vartical position from the origin.
+		 * @returns {Number} A vartical position from the origin
 		 */ 
 		getAlignY:function(){
 			return this._alignY;
 		},
 		/**
-		 * stageオブジェクトを取得
-		 * @retuns {Stage} Stageオブジェクト
+		 * Returns a Stage object.
+		 * @retuns {Stage} Stage object
 		 */
 		getStage: function(){
 			return display.Stage.instance;
@@ -1209,10 +1207,10 @@
 		_displayArr:null, _originWidth:0, _originHeight:0, _maskObj:null,
 	
 		/**
-		 * @class 表示オブジェクトを包括する表示オブジェクトを生成するクラス
+		 * @class A class that creates a display object which can contain display objects.
 		 * @constructs
 		 * @augments arc.display.DisplayObject
-		 * @description 表示オブジェクト生成
+		 * @description Creates a display object container.
 		 */
 		initialize:function($super){
 			$super(null);
@@ -1220,8 +1218,8 @@
 			this._minX = this._maxX = this._minY = this._maxY = 0;
 		},
 		/**
-		 * 表示リストにDisplayObjectオブジェクトを追加
-		 * @param {DisplayObject} targ 追加するDisplayObjectオブジェクト
+		 * Adds the display object to the display list.
+		 * @param {DisplayObject} targ A display object that is going to be added to the display list
 		 */
 		addChild:function(targ){
 			var len = this._displayArr.length;
@@ -1234,9 +1232,9 @@
 			this._updateSize();
 		},
 		/**
-		 * 表示リストの指定の深度にDisplayObjectオブジェクトを追加
-		 * @param {DisplayObject} targ 追加するDisplayObjectオブジェクト
-		 * @param {int} index 深度
+		 * Adds the display object to the display list at the specified depth.
+		 * @param {DisplayObject} targ A display object that is going to be added to the display list
+		 * @param {int} index A depth
 		 */
 		addChildAt:function(targ, index){
 			this._displayArr.splice(index, 0, targ);
@@ -1244,8 +1242,8 @@
 			this._updateSize();
 		},
 		/**
-		 * 表示リストからDisplayObjectオブジェクトを削除
-		 * @param {DisplayObject} targ 削除するDisplayObjectオブジェクト
+		 * Removes the display object from the display list.
+		 * @param {DisplayObject} targ A display object that is going to be removed from the display list
 		 */
 		removeChild:function(targ){
 			var len = this._displayArr.length;
@@ -1273,9 +1271,9 @@
 			this._displayArr = [];
 		},
 		/**
-		 * DisplayObjectオブジェクトが表示リストに含まれているか否か
-		 * @param {DisplayObject} targ チェックするDisplayObjectオブジェクト
-		 * @returns {Boolean} 表示リストに含まれているか否か
+		 * Determines whether the display object is a child of the display object container.
+		 * @param {DisplayObject} targ A display object to test
+		 * @returns {Boolean} true if the display object is a child of the display object container
 		 */
 		contains:function(targ){
 			var len = this._displayArr.length;
@@ -1287,20 +1285,20 @@
 			return false;
 		}, 
 	
-        /**
-         * 子DisplayObjectの深度を変更する
-         * @param {DisplayObject} child 変更したい子DisplayObject
-         * @param {Number} index 変更後の深度
-         */
-        setChildIndex:function(child, index){
-            for(var i = 0, len = this._displayArr.length; i < len; i++){
-                var disp = this._displayArr[i];
-                if(disp == child){
-                    this._displayArr.splice(i, 1);
-                    this._displayArr.splice(index, 0, child);
-                }
-            }
-        },
+		/**
+		 * Changes a depth of the display object.
+		 * @param {DisplayObject} child A display object which is going to be changed its depth.
+		 * @param {Number} index A new depth
+		 */
+		setChildIndex:function(child, index){
+			for(var i = 0, len = this._displayArr.length; i < len; i++){
+				var disp = this._displayArr[i];
+				if(disp == child){
+					this._displayArr.splice(i, 1);
+					this._displayArr.splice(index, 0, child);
+				}
+			}
+		},
 
 		draw:function(pX, pY, pScaleX, pScaleY, pAlpha, pRotation){
 			if(!this.getVisible()) return;
@@ -1414,17 +1412,17 @@
 			this._height = this._originHeight * this._scaleY;
 		},
 		/**
-		 * マスクをセットする
-		 * @param {Number} x マスクのx座標
-		 * @param {Number} y マスクのy座標
-		 * @param {Number} width マスクの横幅
-		 * @param {Number} height マスクの高さ
+		 * Sets a clipping mask.
+		 * @param {Number} x A horizontal position of the clipping mask
+		 * @param {Number} y A vartical position of the clipping mask
+		 * @param {Number} width A width of the clipping mask
+		 * @param {Number} height A height of the clipping mask
 		 */ 
 		setMask:function(x, y, width, height){
 			this._maskObj = {x:x, y:y, width:width, height:height};
 		},
 		/**
-		 * マスクを解除する
+		 * Deletes the clipping mask.
 		 */
 		clearMask:function(){
 			this._maskObj = null;
@@ -1506,18 +1504,18 @@
 		_funcStack:null, _minX:0, _maxX:0, _minY:0, _maxY:0, _firstFlg:true, _willBeFilled:false, _willBeStroked:false,
 	
 		/**
-		 * @class canvasにベクタを描画する表示オブジェクト
+		 * @class A Shape object draws vectors to the canvas.
 		 * @constructs
 		 * @augments arc.display.DisplayObject
-		 * @description Shapeオブジェクト生成
+		 * @description Creates Shape object
 		 */
 		initialize:function(){
 			this._funcStack = new Array();
 		},
 		/**
-		 * 塗りの開始
-		 * @param {int} color 色
-		 * @param {alpha} alpha アルファ値
+		 * Begings to fill.
+		 * @param {int} color A color of the fill
+		 * @param {alpha} alpha An alpha of the fill
 		 */ 
 		beginFill:function(color, alpha){
 			var self = this;
@@ -1529,7 +1527,7 @@
 			});
 		},
 		/**
-		 * 塗りの終了
+		 * Ends to fill.
 		 */
 		endFill:function(){
 			var self = this;
@@ -1539,10 +1537,10 @@
 			});
 		},
 		/**
-		 * ストロークの開始
-		 * @param {Number} thickness　線の太さ
-		 * @param {int} color 色
-		 * @param {Number} alpha アルファ値
+		 * Begins to stroke.
+		 * @param {Number} thickness A thickness of the stroke
+		 * @param {int} color A color of the stroke
+		 * @param {Number} alpha An alpha of the stroke
 		 */
 		beginStroke:function(thickness, color, alpha){
 			var self = this;
@@ -1557,7 +1555,7 @@
 			});
 		},
 		/**
-		 * ストロークの終了
+		 * Ends to stroke
 		 */
 		endStroke:function(){
 			var self = this;
@@ -1566,9 +1564,9 @@
 			});
 		},
 		/**
-		 * 現在の描画位置を移動
-		 * @param {Number} x 移動先のx座標
-		 * @param {Number} y 移動先のy座標
+		 * Changes the starting position to draw the line.
+		 * @param {Number} x A new horizontal position
+		 * @param {Number} y A new vartical position
 		 */
 		moveTo:function(x, y){
 			this._funcStack.push(function(pX, pY, pScaleX, pScaleY, pAlpha){
@@ -1577,9 +1575,9 @@
 			});
 		},
 		/**
-		 * 現在の描画位置から線を描画して描画位置を変更
-		 * @param {Number} x 移動先のx座標
-		 * @param {Number} y 移動先のy座標
+		 * Changes the current position with drawing the line from the previous position.
+		 * @param {Number} x A new horizontal position
+		 * @param {Number} y A new vartical position
 		 */
 		lineTo:function(x, y){
 			var self = this;
@@ -1611,11 +1609,11 @@
 			this._updateScreenRect();
 		},
 		/**
-		 * 矩形を描画
-		 * @param {Number} x 矩形のx座標
-		 * @param {Number} y 矩形のy座標
-		 * @param {Number} width 矩形の横幅
-		 * @param {Number} height 矩形の高さ
+		 * Draws a rect.
+		 * @param {Number} x A horizontal position of the rect
+		 * @param {Number} y A vartical position of the rect
+		 * @param {Number} width A width of the rect
+		 * @param {Number} height A height of the rect
 		 */ 
 		drawRect:function(x, y, width, height){
 			this._updateSize(x, y, width, height);
@@ -1630,10 +1628,10 @@
 			});
 		},
 		/**
-		 * 円を描画
-		 * @param {Number} x 円の中心のx座標
-		 * @param {Number} y 円の中心のy座標
-		 * @param {Number} radius 円の半径
+		 * Draws a circle.
+		 * @param {Number} x A horizontal position of the center of the circle
+		 * @param {Number} y A vartical position of the center of the circle
+		 * @param {Number} radius A radius of the circle
 		 */
 		drawCircle:function(x, y, radius){
 			this._updateSize(x - radius, y - radius, radius * 2, radius * 2);
@@ -1720,18 +1718,17 @@
 		_align:display.Align.TOP_LEFT, _alignX:0, _alignY:0,
 	
 		/**
-		 * @class dataにImageオブジェクトをとる表示オブジェクト。Alignを設定できる
+		 * @class A base class for all display objects that holds Image object.
 		 * @constructs
 		 * @augments arc.display.DisplayObject
-		 * @param {Image} data 表示するImageオブジェクト
-		 * @description 
+		 * @param {Image} data Image object that is going to be shown
 		 */
 		initialize:function(data){
 			
 		},
 		/**
-		 * Alignを設定
-		 * @param {String} Alignの文字列
+		 * Sets the align of the Image object.
+		 * @param {String} align
 		 */
 		setAlign:function(align){
 			var dataWidth = (this._data.getFrameWidth()) ? this._data.getFrameWidth() : this._data.getWidth();
@@ -1779,8 +1776,8 @@
 			this._align = align;
 		},
 		/**
-		 * Alignを取得
-		 * @returns {String} Alignの文字列
+		 * Returns the align
+		 * @returns {String} A string of the align
 		 */
 		getAlign:function(){
 			return this._align;
@@ -1792,11 +1789,13 @@
 	/** @lends arc.display.Sprite.prototype */
 	{
 		/**
-		 * @class 通常の画像を扱う表示オブジェクト
+		 * @class A display object for a image
 		 * @constructs
 		 * @augments arc.display.ImageContainer
-		 * @param {Image} data 表示するImageオブジェクト
-		 * @description 
+		 * @param {Image} data Image object that is going to be shown
+		 * @example var sp = new arc.display.Sprite(this._system.getImage('a.png'));
+		 * sp.setX(10);
+		 * sp.setY(10);
 		 */
 		initialize:function(data){
 	
@@ -1836,13 +1835,12 @@
 		_shouldAutoPlay:false,
 	
 		/**
-		 * @class FlashのMovieClipを再現したオブジェクト。addChildの際にタイムライン定義のオブジェクトを指定することで、キーフレームアニメーションが実現できる。
+		 * @class A display object works like the ActionScript3.0's MovieClip. It controls the animations of its children with a key frame animation definition object that is specified when adding the child.
 		 * @constructs
 		 * @augments arc.display.DisplayObjectContainer
 		 * @param {Number} fps FPS
-		 * @param {Boolean} shouldLoop ループするか否か
-		 * @param {Boolean} shouldAutoPlay スクリーンに表示されたタイミングで再生を開始するか否か
-		 * @description 
+		 * @param {Boolean} shouldLoop If true the animation will be looped
+		 * @param {Boolean} shouldAutoPlay If true the animation plays when it is shown, false the animation plays when the play method is called
 		 * @example var mc = new arc.display.MovieClip();
 		 * mc.addChild(this._yellowImg, {
 		 *	1 : {visible:true},
@@ -1937,6 +1935,11 @@
 			}
 		},
 	
+		/**
+		 * Adds the display object to the display list with a key frame object.
+		 * @param {DisplayObject} targ A display object that is going to be added to the display list
+		 * @param {Object} keyFrameObj An object that takes a frame index as a key and a group of properties as a value
+		 */
 		addChild:function($super, targ, keyframeObj){
 			var timeline, totalFrame;
 			$super(targ);
@@ -1944,7 +1947,12 @@
 				this._setTimeline(targ, keyframeObj);
 			}
 		},
-	
+		/**
+		 * Adds the display object to the display list at the specified depth with a key frame object.
+		 * @param {DisplayObject} targ A display object that is going to be added to the display list
+		 * @param {int} index A depth
+		 * @param {Object} keyFrameObj An object that takes a frame index as a key and a group of properties as a value
+		 */
 		addChildAt:function($super, targ, index, keyframeObj){
 			var timeline, totalFrame;
 			$super(targ, index);
@@ -1955,8 +1963,8 @@
 		},
 	
 		/**
-		 * 再生
-		 * @param {Boolean} shouldLoop ループするか否か
+		 * Playes the animation.
+		 * @param {Boolean} shouldLoop If true the animation will be looped
 		 */
 		play:function(){
 			this._isPlaying = true;
@@ -1964,15 +1972,15 @@
 			this._executeKeyFrame(this._currentFrame);
 		},
 		/**
-		 * 停止
+		 * Stops the animation.
 		 */
 		stop:function(){
 			this._isPlaying = false;
 			this._timer.stop();
 		},
 		/**
-		 * 指定のフレームから再生
-		 * @param {int} index 再生を開始するフレーム
+		 * Plays the animation from the specified frame.
+		 * @param {int} index A frame which the animation starts from
 		 */
 		gotoAndPlay:function(index){
 			if(index < 1 || index > this._totalFrame) throw new Error("Invalid frame index");
@@ -1980,8 +1988,8 @@
 			this.play();
 		},
 		/**
-		 * 指定のフレームで停止
-		 * @param {int} index　停止するフレーム
+		 * Stops at the specified frame.
+		 * @param {int} index A frame which the animation stops at
 		 */
 		gotoAndStop:function(index){
 			if(index < 1 || index > this._totalFrame) throw new Error("Invalid frame index");
@@ -1994,11 +2002,10 @@
 	/** @lends arc.display.JSONMovieClip.prototype */
 	{
 		/**
-		 * @class JSONデータからMovieClipを作成するクラス
+		 * @class A class that creates MovieClip from JSON.
 		 * @constructs
 		 * @augments arc.display.MovieClip
-		 * @param {Object} obj JSONオブジェクト
-		 * @description 
+		 * @param {Object} obj JSON object
 		 */
 		initialize:function($super, obj){
 			var Sprite = arc.display.Sprite,
@@ -2062,15 +2069,14 @@
 		_currentFrame:1, _totalFrame:1, _frameWidth:0, _frameTime:0, _isPlaying:false, _timer:null, _shouldLoop:false, _shouldHide:false,
 	
 		/**
-		 * @class 連続PNGを扱う表示オブジェクト
+		 * @class A display object that plays an animation by using a image sheet.
 		 * @constructs
 		 * @augments arc.display.ImageContainer
-		 * @param {Image} data 表示するImageオブジェクト
-		 * @param {Number} frameWidth １フレームのwidth
-		 * @param {Number} fps 何fpsでアニメーションするか
-		 * @param {Boolean} shouldLoop ループするか否か
-		 * @param {Boolean} shouldHide 再生していない間は表示を消すか否か
-		 * @description 
+		 * @param {Image} data A Image object of a image sheet
+		 * @param {Number} frameWidth A width for each frames
+		 * @param {Number} fps A FPS for the animation
+		 * @param {Boolean} shouldLoop If true the animation will be looped
+		 * @param {Boolean} shouldHide If true it will be hidden while the animation stops
 		 */
 		initialize:function(data, frameWidth, fps, shouldLoop, shouldHide){
 			this._timer = new Timer();
@@ -2088,8 +2094,8 @@
 			this.stop();
 		},
 		/**
-		 * 再生
-		 * @param {Boolean} shouldLoop ループするか否か
+		 * Plays the animation.
+		 * @param {Boolean} shouldLoop If true the animation will be looped
 		 */
 		play:function(shouldLoop){
 			this._isPlaying = true;
@@ -2098,7 +2104,7 @@
 			this._timer.start();
 		},
 		/**
-		 * 停止
+		 * Stops the animation.
 		 */
 		stop:function(){
 			this._isPlaying = false;
@@ -2106,8 +2112,8 @@
 			if(this._shouldHide) this._visible = false;
 		},
 		/**
-		 * 指定のフレームから再生
-		 * @param {int} index 再生を開始するフレーム
+		 * Plays the animation from the specified frame.
+		 * @param {int} index A frame which the animation starts from
 		 */
 		gotoAndPlay:function(index){
 			if(index < 1 || index > this._totalFrame) throw new Error("Invalid frame index");
@@ -2115,8 +2121,8 @@
 			this.play();
 		},
 		/**
-		 * 指定のフレームで停止
-		 * @param {int} index　停止するフレーム
+		 * Stops at the specified frame.
+		 * @param {int} index A frame which the animation stops at
 		 */
 		gotoAndStop:function(index){
 			if(index < 1 || index > this._totalFrame) throw new Error("Invalid frame index");
@@ -2183,14 +2189,13 @@
 		_timer:null,
 	
 		/**
-		 * @class 複数イメージをアニメーションする表示オブジェクト
+		 * @class A class that plays an animation by using multiple Image objects.
 		 * @constructs
 		 * @augments arc.display.DisplayObjectContainer
-		 * @param {Array} imgArr アニメーションするImageオブジェクトの配列
-		 * @param {Number} frameTime １フレームのミリ秒
-		 * @param {Boolean} shouldLoop ループするか否か
-		 * @param {shouldHide} shouldHide 再生していない間は表示を消すか否か
-		 * @description 
+		 * @param {Array} imgArr An array of Image objects
+		 * @param {Number} frameTime A millisecond of each frame
+		 * @param {Boolean} shouldLoop If true the animation will be looped
+		 * @param {shouldHide} shouldHide If true it will be hidden while the animation stops
 		 */
 		initialize:function(imgArr, frameTime, shouldLoop, shouldHide){
 			var i = 0, len = imgArr.length, sprite;
@@ -2241,8 +2246,8 @@
 			}
 		},
 		/**
-		 * 再生
-		 * @param {Boolean} shouldLoop ループするか否か
+		 * Plays the animation.
+		 * @param {Boolean} shouldLoop If true the animation will be looped
 		 */
 		play:function(shouldLoop){
 			this._isPlaying = true;
@@ -2251,7 +2256,7 @@
 			this._timer.start();
 		},
 		/**
-		 * 停止
+		 * Stops the animation.
 		 */
 		stop:function(){
 			this._isPlaying = false;
@@ -2259,8 +2264,8 @@
 			if(this._shouldHide) this._visible = false;
 		},
 		/**
-		 * 指定のフレームから再生
-		 * @param {int} index 再生を開始するフレーム
+		 * Plays the animation from the specified frame.
+		 * @param {int} index A frame which the animation starts from
 		 */
 		gotoAndPlay:function(index){
 			if(index < 1 || index > this._totalFrame) throw new Error("Invalid frame index");
@@ -2268,8 +2273,8 @@
 			this.play();
 		},
 		/**
-		 * 指定のフレームで停止
-		 * @param {int} index　停止するフレーム
+		 * Stops at the specified frame.
+		 * @param {int} index A frame which the animation stops at
 		 */
 		gotoAndStop:function(index){
 			if(index < 1 || index > this._totalFrame) throw new Error("Invalid frame index");
@@ -2280,15 +2285,14 @@
 
 
 	display.Stage = Class.create(display.DisplayObjectContainer,
-    /** @lends arc.display.Stage.prototype */	
+	/** @lends arc.display.Stage.prototype */	
 	{
-        /**
-		 * @class 表示ツリーのルートとなる表示オブジェクト
+		/**
+		 * @class A display object that is a root of the display tree.
 		 * @constructs
 		 * @augments arc.display.DisplayObjectContainer
-         * @param {Number} width 画面の横幅
-         * @param {Number} height 画面の縦幅
-		 * @description 
+		 * @param {Number} width A width of the screen
+		 * @param {Number} height A height of the screen
 		 */
 		initialize: function(width, height){
 			if(display.Stage.instance){
@@ -2299,17 +2303,17 @@
 			this._stageWidth = width;
 			this._stageHeight = height;
 		},
-        /**
-         * 画面の横幅を取得
-         * @returns {Number} 画面の横幅
-         */
+		/**
+		 * Returns the width of the screen.
+		 * @returns {Number} A width of the screen
+		 */
 		getStageWidth: function(){
 			return this._stageWidth;
 		},
-        /**
-         * 画面の縦幅を取得
-         * @returns {Number} 画面の縦幅
-         */
+		/**
+		 * Returns the height of the screen.
+		 * @returns {Number} A height of the sreen
+		 */
 		getStageHeight: function(){
 			return this._stageHeight;
 		}
@@ -2323,10 +2327,9 @@
 		_font:null, _family:'sans-serif', _textArr:null, _color:0x000000, _align:'left', _baseline:'top', _size:10,
 	
 		/**
-		 * @class テキストを扱う表示オブジェクト
+		 * @class A display object that handles texts.
 		 * @constructs
 		 * @augments arc.display.DisplayObject
-		 * @description 
 		 */
 		initialize:function(){
 			if(ua.isiOS3){
@@ -2369,8 +2372,8 @@
 		},
 	
 		/**
-		 * Alignを設定
-		 * @param {String} Alignの文字列
+		 * Sets an align of the text.
+		 * @param {String} align
 		 */
 		setAlign:function(align){
 			switch(align){
@@ -2416,8 +2419,8 @@
 			}
 		},
 		/**
-		 * テキストをセット
-		 * @param {String} text 表示するテキスト
+		 * Sets texts.
+		 * @param {String} text Texts that is going to be shown
 		 */	
 		setText:function(text){
 			if(!(text instanceof String)){
@@ -2451,10 +2454,10 @@
 			}
 		},
 		/**
-		 * フォントをセット
-		 * @param {String} family フォントファミリー
-		 * @param {Number} size フォントサイズ
-		 * @param {Boolean} isBold ボールドするか
+		 * Sets a font of the texts.
+		 * @param {String} family A font family
+		 * @param {Number} size A size of the font
+		 * @param {Boolean} isBold If true the text is bold
 		 */
 		setFont:function(family, size, isBold){
 			this._family = family;
@@ -2471,8 +2474,8 @@
 		},
 	
 		/**
-		 * 文字色をセット
-		 * @param {int} color 16進数で指定された色
+		 * Sets a color of the texts.
+		 * @param {int} color A color in hex
 		 */
 		setColor:function(color){
 			this._color = color;
@@ -2494,17 +2497,17 @@
 		_HALF_PI:Math.PI / 2,
 	
 		/**
-		 * @class ASのTweenerライクに、指定したtargetに対して指定された複数のオブジェクトのプロパティの値に対してアニメーションを行う
+		 * @class A class that manages an animation of a display object by specifying multiple animation objects.
 		 * @constructs
 		 * @augments arc.EventDispatcher
-		 * @param {Object} target 変化させるtarget。変化させるプロパティのgetter/setterが実装されている必要がある。getterはgetProp1、setterはsetProp1といったような形式
-		 * @param {Object} params 変化させるパラメーター。複数指定した場合順番に実行する
-		 * @description 
+		 * @param {Object} target Any object that will be changed its properties by the animation. Usually the object is a display object.
+		 * @param {Object} params An object containing various properties of the target object that you want to animate on the target objects with the final values, a duration and a transition type. If multiple objects are specified, the values of the properties will be changed sequentially. The target object should implements a getter and a setter of the properties. The format of the getter is "getProperty" and the setter is "setProperty".
 		 * @example
-		 * //0.5秒かけてxを10、yを10にSINE_OUTの関数を使って変化させたのち、1秒かけてxを20、yを30に変化させる。
+		 * //Takes 0.5 seconds to move its position to x:10, y:10 with a SINE_OUT transition, and after that takes 1 second to move its position to x:20, y:30 with a SINE_IN transition.
 		 * var anim = new arc.anim.Animation(target, 
 		 * 					{x:10, y:10, time:500, transition:arc.anim.Transition.SINE_OUT},
 		 *					{x:20, y:30, time:1000, transition:arc.anim.Transition.SINE_OUT});
+		 * anim.play();
 		 */
 		initialize:function(target){
 			if(!target) throw new Error('Specify target');
@@ -2518,8 +2521,8 @@
 			}
 		},
 		/**
-		 * 再生
-		 * @param {Boolean} shouldReplay ループするか否か
+		 * Playes the animation.
+		 * @param {Boolean} shouldReplay If true the animation will be looped
 		 */
 		play:function(shouldReplay){
 			if(this._isPlaying) return;
@@ -2537,7 +2540,7 @@
 			}
 		},
 		/**
-		 * 停止
+		 * Stops the animation.
 		 */
 		stop:function(){
 			if(!this._isPlaying) return;
@@ -2604,8 +2607,8 @@
 			}		
 		},
 		/**
-		 * 再生中かどうか
-		 * @returns {Boolean} 再生中かどうか
+		 * Determines if the animtion is playing.
+		 * @returns {Boolean} If true the animation is playing
 		 */ 
 		isPlaying:function(){
 			return this._isPlaying;
@@ -2703,10 +2706,10 @@
 	
 		var HALF_PI = Math.PI / 2;
 		/**
-		 * Transitionタイプを指定して対応するTransition関数を取得する
+		 * Returns a transition funciton by specifying a transition type string.
 		 * @memberof arc.anim.Transition
-		 * @param {String} type Transitionタイプ
-		 * @returns {Function} 指定したTransitionタイプに対応する関数
+		 * @param {String} type A transition type
+		 * @returns {Function} A transition function that is assigned to the transition type
 		 */
 		function getTransFunc(type){
 			switch(type){
@@ -2801,11 +2804,10 @@
 		_target:null, _keyFrameObj:null, _totalFrame:0, _fps:0, _baseFrame:null, _firstFrame:0,
 	
 		/**
-		 * @class Flashのタイムラインを再現するクラス。KeyFrameAnimationで使われる
+		 * @class A class that manages a timeline. It is used in MovieClip and KeyFrameAnimation internally.
 		 * @constructs
-		 * @param {Object} target 変化させるtarget。変化させるプロパティのgetter/setterが実装されている必要がある。getterはgetProp1、setterはsetProp1といったような形式
-		 * @param {Object} keyFrameObj 各フレームにおけるプロパティの値を定義したObject
-		 * @description 
+		 * @param {Object} target Any object that will be changed its properties by the animation. Usually the object is a display object.
+		 * @param {Object} keyFrameObj An object that takes a frame index as a key and a group of properties as a value
 		 */
 		initialize:function(target, keyFrameObj, fps){
 			var frameNum;
@@ -2831,9 +2833,9 @@
 			}
 		},
 		/**
-		 * KeyFrameAnimationがENTER_FRAME毎に叩く。経過時間に応じてプロパティの値を適切に変化させる
-		 * @param {int} index フレームインデックス
-		 * @param {Number} elapsed 経過時間
+		 * A method that is supposed to be called in every ENTER_FRAME. It changes the values of the properties depending on the elapsed time.
+		 * @param {int} index A frame index
+		 * @param {Number} elapsed An elapsed time
 		 */ 
 		update:function(index, elapsed){
 			if(!this._baseFrame || !this._baseFrame.transition || !this._baseFrame.nextFrame) return;
@@ -2851,8 +2853,8 @@
 			}
 		},
 		/**
-		 * 指定したフレームのにおけるプロパティの値をセット
-		 * @param {int} index フレームインデックス
+		 * Sets values of the propeties at the specified frame index.
+		 * @param {int} index A frame index
 		 */ 	
 		executeKeyFrame:function(index){
 			var keyframe = this._keyFrameObj[index];
@@ -2883,22 +2885,22 @@
 			}
 		},
 		/**
-		 * 総フレーム数をセット
-		 * @param {int} totalFrames 総フレーム数
+		 * Sets a number of total frames.
+		 * @param {int} totalFrames A number of total frames
 		 */ 
 		setTotalFrames:function(value){
 			this._totalFrame = value;
 		},
 		/**
-		 * 総フレーム数を取得
-		 * return {Number} 総フレーム数
+		 * Returns the nubmer of total frames.
+		 * return {Number} The number of total frames
 		 */
 		getTotalFrames:function(value){
 			return this._totalFrame;
 		},
 		/**
-		 * fpsをセット
-		 * @param {Number} fps fps
+		 * Sets a FPS.
+		 * @param {Number} fps FPS
 		 */ 
 		setFps:function(value){
 			this._fps = value;
@@ -2928,12 +2930,12 @@
 		_fps:0, _totalFrame:0, _timelineArr:null, _timer:null, _updateFunc:null, _shouldLoop:false, _currentFrame:1,
 	
 		/**
-	  	 * @class Flashのタイムラインアニメーションを再現するクラス
+		 * @class A class that manages an key frame animation by specifying Timeline objects.
 		 * @constructs
-		 * @param {Number} fps fps
-		 * @param {int} totalFrame 総フレーム数
-		 * @param {Array} timeLineArr Timelineオブジェクトの配列
-		 * @description 
+		 * @param {Number} fps FPS
+		 * @param {int} totalFrame A number of total frames
+		 * @param {Array} timeLineArr An array of Timeline objects
+		 * @deprecated Prefered to use MovieClip
 		 * @example var keyFrame = new arc.anim.KeyFrameAnimation(12, 5, [
 				new arc.anim.Timeline(this._yellowImg, {
 					1 : {visible:true},
@@ -2965,21 +2967,21 @@
 			this._timelineArr = (timelineArr) ? timelineArr : [];
 		},
 		/**
-		 * Timelineオブジェクトを追加
-		 * @param {Timeline} timeline 追加するタイムラインオブジェクト
+		 * Adds Timeline object.
+		 * @param {Timeline} timeline A Timeline object that is added
 		 */
 		addTimeline:function(timeline){
 			this._timelineArr.push(timeline);
 		},
 		/**
-		 * 再生開始
-		 * @param {Boolean} shouldLoop ループするか否か
+		 * Plays the animation.
+		 * @param {Boolean} shouldLoop If true the animation will be looped
 		 */
 		play:function(shouldLoop){
 			this.gotoAndPlay(1, shouldLoop);
 		},
 		/**
-		 * 停止
+		 * Stops the animation.
 		 */
 		stop:function(){
 			var system = anim.Animation.system;
@@ -2990,9 +2992,9 @@
 			this.dispatchEvent(Event.COMPLETE);
 		},
 		/**
-		 * 指定フレームから再生を開始
-		 * @param {int} frame 再生開始フレーム
-		 * @param {Boolean} shouldLoop ループするか否か
+		 * Plays the animation from the specified frame.
+		 * @param {int} index A frame which the animation starts from
+		 * @param {Boolean} shouldLoop If true the animation will be looped
 		 */
 		gotoAndPlay:function(frame, shouldLoop){
 			if(frame > this._totalFrame) throw new Error("invalid frame index");
@@ -3043,15 +3045,15 @@
 			}
 		},
 		/**
-		 * 現在再生しているフレームを取得
-		 * @returns {int} 現在再生しているフレーム
+		 * Returns the current frame index.
+		 * @returns {int} The current frame index
 		 */
 		getCurrentFrame:function(){
 			return this._currentFrame;
 		},
 		/**
-		 * 総フレーム数を取得
-		 * @returns {int} 総フレーム数
+		 * Returns a number of total frames.
+		 * @returns {int} A number of total frames
 		 */
 		getTotalFrame:function(){
 			return this._totalFrame;
@@ -3062,7 +3064,7 @@
 
 	/**
 	 * @name arc.ImageManager
-	 * @class 画像の読み込みを管理する
+	 * @class A class that manages loading of images.
 	 */
 	var ImageManager = Class.create(EventDispatcher, 
 	(function(){
@@ -3077,16 +3079,16 @@
 			this._srcArr = [];
 		}
 		/**
-		 * 画像の一括読み込みを開始する
+		 * Starts to load the images.
 		 * @memberOf arc.ImageManager.prototype
-		 * @param {Array} srcArr パスが格納された配列
+		 * @param {Array} srcArr An array that holds urls of the images
 		 */
 		function load(srcArr){
 			this._srcArr = srcArr;
 			this._loadedImgNum = 0;
 			this._loadImgNum = srcArr.length;
 			this._loadingImgArr = [];
-            
+
 			if(!srcArr || srcArr.length === 0){
 				this.dispatchEvent(Event.COMPLETE);
 				return;
@@ -3148,13 +3150,13 @@
 			
 		}
 		/**
-		 * 読み込まれた画像を取得します。
+		 * Returns Image object from its list of loaded images.
 		 * @memberOf arc.ImageManager.prototype
-		 * @param {String} path 画像パス
-		 * @param {Array} localPosArr 画像のローカル座標とサイズを[x, y, width, height]の配列で指定します。スプライトシートから一部の画像を使いたい時等に利用します。（オプション）
-		 * @returns {arc.Image} 読み込まれたImageオブジェクト
+		 * @param {String} path A url of the image
+		 * @param {Array} localPosArr An array of local position and size of the image in a format like [x, y, width, height]. If the parameter is specified, it returns a clipped Image object.(Optional)
+		 * @returns {arc.Image} A loaded Image object
 		 * @example
-		 * var img = system.getImage('a.png', [10, 10, 100, 100]);
+		 * var img = loader.getImage('a.png', [10, 10, 100, 100]);
 		 */
 		function getImage(path, localPosArr){
 			if(!this._imageHash[path]){
@@ -3169,18 +3171,18 @@
 		}
 
 		/**
-		 * 読み込む画像数を取得
+		 * Returns a number of total images.
 		 * @memberOf arc.ImageManager.prototype
-		 * @returns {Number} 読み込む画像数
+		 * @returns {Number} A number of total images
 		 */
 		function getTotal(){
 			return this._loadImgNum;
 		}
 
 		/**
-		 * 読み込みが終了した画像数
+		 * Returns a number of total loaded images.
 		 * @memberOf arc.ImageManager.prototype
-		 * @returns {Number} 読み込みが終了した画像数
+		 * @returns {Number} A number of total loaded images
 		 */
 		function getLoaded(){
 			return this._loadedImgNum;
@@ -3204,18 +3206,17 @@
 		_stage:null, _imageManager:null,
 		_realFps:0, _runTime:0, _runCount:0, _prevTime:0, _fpsElem:null,
 		_maxFps:0, _adjustCount:1, _timer:null,
-        _canvasScale: 1,
+		_canvasScale: 1,
 	
 		_ADJUST_FPS_TIME:10000, _ADJUST_FACTOR:2.5,
 		
 		/**
-		 * @class ゲームを制御するメインクラス
+		 * @class The main class that manages a game.
 		 * @constructs
-		 * @param {Number} width ゲームの横幅
-		 * @param {Number} height ゲームの高さ
-		 * @param {String} canvasId htmlで指定されてcanvas要素のid
-		 * @param {Boolean} disableClearRect clearRectを無効にするかどうか。背景がある場合は無効にしたほうがパフォーマンスがあがる。
-		 * @description 
+		 * @param {Number} width A width of the game
+		 * @param {Number} height A height of the game
+		 * @param {String} canvasId An id of canvas element for the game
+		 * @param {Boolean} disableClearRect If true the system will not call clearRect. If the game has a not opaque background, it is better to be true in terms of its performance.
 		 */	
 		initialize:function(width, height, canvasId, disableClearRect){
 			this._width = width;
@@ -3241,12 +3242,13 @@
 		},
 		/**
 		 * 指定したフルスクリーンモードにする。デバイスを回転させた時にも適用される。
-		 * @param {String} mode フルスクリーンモード
-		 * @param {Boolean} shouldShrink 縮小を許可するか
+		 * Enables a specified full screen mode. There are 3 types of full screen mode "width", "height" and "all". "width" mode keeps its aspect ratio and fits its width to the width of the screen. "height" mode keeps its aspect ratio and fits its height to the height of the screen. "all" mode keeps its aspect ratio and shows all contents in the screen.
+		 * @param {String} mode A full screen mode "width", "height" or "all".
+		 * @param {Boolean} shouldShrink If true the game will be shrunk when the size of the screen is smaller than the size of the game.
 		 * @example
-		 * system.setFullScreen("width");		//アスペクト比は保ったまま、コンテンツの横幅を画面の横幅に合わせる
-		 * system.setFullScreen("height");		//アスペクト比は保ったまま、コンテンツの縦幅を画面の縦幅に合わせる
-		 * system.setFullScreen("all", true);	//アスペクト比は保ったまま、コンテンツを必ず画面内におさめる
+		 * system.setFullScreen("width");		//Keeps its aspect ratio and fits its width to the width of the screen
+		 * system.setFullScreen("height");		//Keeps its aspect ratio and fits its height to the height of the screen
+		 * system.setFullScreen("all", true);	//Keeps its aspect ratio and shows all contents in the screen
 		 */ 
 		setFullScreen:function(mode, shouldShrink){
 			this._fullScreenMode = (mode) ? mode : 'width';
@@ -3314,17 +3316,17 @@
 				var list = cont._displayArr, disp, pos;
 				for(var i = list.length - 1; i >= 0; i--){
 					disp = list[i];
-                    if(!disp.getVisible()){
-                        continue;
-                    }
+					if(!disp.getVisible()){
+						continue;
+					}
 					pos = cont.localToGlobal(disp._screenRect[0], disp._screenRect[1]);
 					
 					if(pos[0] <= x && pos[0] + disp._screenRect[2] >= x && pos[1] <= y && pos[1] + disp._screenRect[3] >= y){
 						if(disp._displayArr){
-                            var target = findTarget(disp, x, y);
-                            if(target){
-                                return target;
-                            }
+							var target = findTarget(disp, x, y);
+							if(target){
+								return target;
+							}
 						}else{
 							return disp;
 						}
@@ -3436,8 +3438,8 @@
 			}
 		},
 		/**
-		 * 画像のロードを行う
-		 * @param {Array} resourceArr ImageManagerに渡すリソース配列
+		 * Starts to load the images via ImageManger.
+		 * @param {Array} resourceArr An array of urls of the images
 		 */ 
 		load:function(resourceArr){
 			this._isStartedWithLoad = true;
@@ -3458,16 +3460,16 @@
 			this._startGame();	
 		},
 		/**
-		 * Gameのメインクラスを指定
-		 * @param {Function} gameClass Gameのメインクラス
-		 * @param {Object} gameParams Gameのパラメーターオブジェクト 
+		 * Sets a main class of the game which extends Game class.
+		 * @param {Function} gameClass A main game class
+		 * @param {Object} gameParams A initial parameters
 		 */ 
 		setGameClass:function(gameClass, gameParams){
 			this._gameClass = gameClass;
 			this._gameParams = gameParams;
 		},
 		/**
-		 * Gameをスタートさせる
+		 * Starts the game.
 		 */
 		start:function(){
 			if(this._game || this._isStartedWithLoad){
@@ -3487,7 +3489,7 @@
 			this._intervalId = setInterval(bind(this.run, this), 1000 / this._fps);
 		},
 		/**
-		 * Gameを停止する
+		 * Stops the game.
 		 */ 
 		stop:function(){
 			clearInterval(this._intervalId);
@@ -3515,24 +3517,24 @@
 			this.dispatchEvent(Event.ENTER_FRAME);
 		},
 		/**
-		 * Canvasの横幅を取得
-		 * @returns {Number} Canvasの横幅
+		 * Returns the width of the canvas element.
+		 * @returns {Number} The width of the canvas element
 		 */
 		getWidth:function(){
 			return this._width;
 		},
 		/**
-		 * Canvasの高さを取得
-		 * @returns {Number} Cnavasの高さ
+		 * Returns the height of the canvas element.
+		 * @returns {Number} The height of the canvas element
 		 */
 		getHeight:function(){
 			return this._height;
 		},
 		/**
-		 * 読み込まれた画像を取得します。内部的にImageManagerを使っているので使い方は同様です。
-		 * @param {String} path 画像パス
-		 * @param {Array} localPosArr 画像のローカル座標とサイズを[x, y, width, height]の配列で指定します。スプライトシートから一部の画像を使いたい時等に利用します。（オプション）
-		 * @returns {arc.Image} 読み込まれたImageオブジェクト
+		 * Returns Image object from its list of loaded images. It uses a ImageManager object so the usage is same.
+		 * @param {String} path A url of the image
+		 * @param {Array} localPosArr An array of local position and size of the image in a format like [x, y, width, height]. If the parameter is specified, it returns a clipped Image object.(Optional)
+		 * @returns {arc.Image} A loaded Image object
 		 * @example
 		 * var img = system.getImage('a.png', [10, 10, 100, 100]);
 		 */
@@ -3540,21 +3542,21 @@
 			return this._imageManager.getImage(path, localPosArr);
 		},
 		/**
-		 * canvasを取得
-		 * @returns {HTMLCanvasElement} Gameのcanvas
+		 * Returns the canvas element.
+		 * @returns {HTMLCanvasElement} The canvas element of the game
 		 */
 		getCanvas:function(){
 			return this._canvas;
 		},
 		/**
-		 * すべての表示オブジェクトの親であるStageの表示オブジェクトを取得
-		 * @returns {DisplayObject} Stageの表示オブジェクト
+		 * Returns the Stage object, which is the root of all display objects.
+		 * @returns {DisplayObject} The Stage object
 		 */
 		getStage:function(){
 			return this._stage;
 		},
 		/**
-		 * 実測FPSを取得
+		 * Returns an actual FPS.
 		 * @returns {Number} FPS
 		 */ 
 		getFps:function(){

@@ -1,0 +1,3 @@
+[submodule "submodules/jsdoc3-bootstrap"]
+	path = submodules/jsdoc3-bootstrap
+	url = https://github.com/alivedise/jsdoc3-bootstrap.git

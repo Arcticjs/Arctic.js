@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Index</title>
+    <title><i class="icon-shield" style="color:#0186d1"></i> Class</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -20,7 +20,7 @@
     <header class="header navbar navbar-inverse">
       <div class="navbar-inner">
         <div class="container-fluid">
-          <a class="brand" href="#">Index</a>
+          <a class="brand" href="#"><i class="icon-shield" style="color:#0186d1"></i> Class</a>
         </div>
       </div>
     </header>
@@ -32,90 +32,209 @@
           </div>
 
           <div class="span8">
-              <h1 class="page-header">Index</h1>
+              <h1 class="page-header"><i class="icon-shield" style="color:#0186d1"></i> Class</h1>
               
 
 
+
+<section>
+    
+<header>
+    <!--h2>
+        <span class="ancestors"><a href="arc.html">arc</a>.</span>
+    
+    Class
+    </h2-->
+    
+        <div class="class-description">This class generates a class.</div>
+    
+</header>  
+
+<article>
+    <div class="container-overview hero-unit">
     
 
+    
 
-    <h3> </h3>
+    
+    
+    
+        
+<dt>
+    <h4 class="name" id="Class">new Class<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
 
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
+    
+    
+    
+    
+    
+    
+    
+</dl>
 
-
-
-
-
+    
+    
 
     
 
+    
+    
+    
+    
+    
+    
+    
+</dd>
 
+    
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+        <h3 class="subsection-title">Members</h3>
+        
+        <dl class="bs-docs-example bs-members">
+            
+<dt>
+    <h4 class="name" id="create"><span class="label label-info">static</span> create<span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Generate a class from the class definition.
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
-    <section>
-        <article><h1>Arctic.js</h1>
+    
+    
+    
+    
+    
+    
+    
+</dl>
 
-<p>&lt;img src=&quot;https://raw.github.com/DeNADev/Arctic.js/master/logo.png&quot; width=&quot;347&quot; height=&quot;287&quot;&gt;</p>
+    
+    
+</dd>
 
-<p>Canvas Framework for smartphone</p>
+        
+            
+<dt>
+    <h4 class="name" id="create^2"><span class="label label-info">static</span> create^2<span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Generate a class from a parent class and the class definition.
+    </div>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
 
-<ul><li><a href="http://denadev.github.com/Arctic.js/">Introduction</a></li><li><a href="https://groups.google.com/group/arcticjs?hl=ja">Google Groups</a></li></ul>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
-<h2>DOWNLOAD</h2>
+    
+    
+    
+    
+    
+    
+    
+</dl>
 
-<ul><li><a href="https://raw.github.com/DeNADev/Arctic.js/master/arctic.js">arctic.js</a></li><li><a href="https://raw.github.com/DeNADev/Arctic.js/master/arctic.min.js">arctic.min.js</a></li></ul>
+    
+    
+</dd>
 
-<h2>GETTING STARTED</h2>
+        </dl>
+    
+    
+    
+    
+    
+    
+    
+</article>
 
-<ol><li><p>Download Arctic.js</p></li><li><p>Load Arctic.js
-<code>html
-&lt;html&gt;
-&lt;head&gt;
-&lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;
-&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no&quot;/&gt;
-&lt;title&gt;Game&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;canvas id=&quot;canvas&quot;&gt;&lt;/canvas&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;js/arctic.js&quot;&gt;&lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;js/game.js&quot;&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></p></li><li><p>Create a game class in your JavaScript file
-<code></code>`js
-var GameMain = arc.Class.create(arc.Game, {
-initialize:function(params){
-console.log(params.hp);
-},
-//This method is called in every frame
-update:function(){</p><p>}
-});
-<code></code>`</p></li><li><p>Use the game class
-<code></code>`js
-window.addEventListener(&#39;DOMContentLoaded&#39;, function(e){
-//Pass the width and height of your game and id of the canvas element
-var system = new arc.System(320, 416, &#39;canvas&#39;);</p><p>//The second parameter will be passed as a parameter of initialize method in the game class
-system.setGameClass(GameMain, {hp:100, mp:100});</p><p>system.addEventListener(arc.Event.PROGRESS, function(e){
-console.log(e.loaded + &quot;, &quot; + e.total);
-});</p><p>system.addEventListener(arc.Event.COMPLETE, function(){
-    console.log(&#39;loaded&#39;);
-});</p><p>//After finishing its loading, an instance of the game class will be created automatically
-system.load([&#39;a.png&#39;, &#39;b.png&#39;]);
-}, false);
-<code></code>`</p></li></ol>
-
-<h2>PLATFORM</h2>
-
-<ul><li>Android2.1(can&#39;t rotate)</li><li>Android2.2+</li><li>iOS3(can&#39;t use arc.display.TextField)</li><li>iOS4+</li><li>Safari</li><li>Google Chrome</li></ul>
-
-<h2>LICENSE</h2>
-
-<ul><li>MIT License</li></ul></article>
-    </section>
-
-
+</section>  
 
 
 
@@ -126,7 +245,7 @@ system.load([&#39;a.png&#39;, &#39;b.png&#39;]);
         <br clear="both">
 
       <footer>
-        Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.0</a> on Mon Dec 30 2013 18:44:25 GMT+0900 (JST)
+        Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.0</a> on Mon Dec 30 2013 18:44:26 GMT+0900 (JST)
         <br>
       </footer>
       <script> prettyPrint(); </script>

@@ -1,9 +1,7 @@
 describe('display', function(){
   var image;
-  var game;
 
   beforeEach(function(done){
-    var game = new arc.Game();
     var img = new Image();
     img.src = "img/logo.png";
     img.onload = function(){

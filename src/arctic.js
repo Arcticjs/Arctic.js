@@ -2,6 +2,33 @@
  * Arctic.js v0.1.11
  * Copyright (c) 2012 DeNA Co., Ltd. 
  */
+(function() {
+	var lastTime = 0;
+	var vendors = ['ms', 'moz', 'webkit', 'o'];
+	for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+		window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+		window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame'] 
+																|| window[vendors[x]+'CancelRequestAnimationFrame'];
+	}
+ 
+	if(!window.requestAnimationFrame){
+		window.requestAnimationFrame = function(callback, element) {
+			var currTime = new Date().getTime();
+			var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+			var id = window.setTimeout(function() { callback(currTime + timeToCall); }, 
+			timeToCall);
+			lastTime = currTime + timeToCall;
+			return id;
+		};
+	}
+ 
+	if(!window.cancelAnimationFrame){
+		window.cancelAnimationFrame = function(id) {
+			clearTimeout(id);
+		};
+	}
+}());
+
 (function(global){
 	/**
 	 * Wrapper of console.log. It shows arguments in a comma separated style.
@@ -3201,7 +3228,7 @@
 	var System = Class.create(EventDispatcher, 
 	/** @lends arc.System.prototype */
 	{
-		_fps:60, _originFps:0, _width:0, _height:0, _canvas:null, _context:null, _disableClearRect:false,
+		_originFps:0, _width:0, _height:0, _canvas:null, _context:null, _disableClearRect:false,
 		_game:null, _gameClass:null, _gameParams:null, _intervalId:null,
 		_stage:null, _imageManager:null,
 		_realFps:0, _runTime:0, _runCount:0, _prevTime:0, _fpsElem:null,
@@ -3236,6 +3263,7 @@
 			arc._system = this;
 	
 			this._fpsElem = document.getElementById('fps');
+			this._bindedRun = bind(this.run, this);
 
 			this._setEvent();
 			this._setScroll();
@@ -3486,13 +3514,13 @@
 			this._prevTime = Timer.time;
 	
 			this._timer.start();
-			this._intervalId = setInterval(bind(this.run, this), 1000 / this._fps);
+			this._intervalId = window.requestAnimationFrame(this._bindedRun);
 		},
 		/**
 		 * Stops the game.
 		 */ 
 		stop:function(){
-			clearInterval(this._intervalId);
+			window.cancelAnimationFrame(this._intervalId);
 		},
 		run:function(){
 			Timer.tick();
@@ -3515,6 +3543,8 @@
 			this._stage.draw();
 	
 			this.dispatchEvent(Event.ENTER_FRAME);
+
+			this._intervalId = window.requestAnimationFrame(this._bindedRun);
 		},
 		/**
 		 * Returns the width of the canvas element.
@@ -3580,13 +3610,6 @@
 	var didLoad = false;
 	window.addEventListener("load", function () {
 		didLoad = true;
-		/*
-		if (window.pageYOffset <= 1) {						
-			setTimeout (function () {
-				scrollTo(0, 1);
-			}, 10);
-		}
-		*/
 	}, false);
 
 	

@@ -39,10 +39,10 @@
 		for(var prop in imagePath){
 			resourceArr.push(imagePath[prop]);
 		}
-		//system.loadResources(resourceArr, new LoadingView(loadingView, loadingBar));
 		system.addEventListener(arc.Event.PROGRESS, arc.util.bind(loading.onLoading, loading));
 		system.addEventListener(arc.Event.COMPLETE, arc.util.bind(loading.onLoaded, loading));
 		system.load(resourceArr);
+		system.setFullScreen("width");
 
 		time = document.getElementById('time');
 		coin = document.getElementById('coin');
@@ -54,7 +54,16 @@
 			console.log(window.orientation);
 			
 		},false);
+
+    _hideControls();
 	}
+
+  function _hideControls(){
+    var pcControl = document.querySelector('#control > .pc');
+    if(arc.ua.isMobile){
+      pcControl.style.display = 'none';
+    }
+  }
 
 	var debug = document.getElementById('debug');
 	function setDebug(msg){
@@ -89,10 +98,10 @@
 	var GameMain = Class.create(arc.Game, (function(){        
 		var _coinArr = [],
 		    _fl = 250,
-        	    _xpos = 0,
-        	    _ypos = CAMERA_Y,
-        	    _zpos = 0,
-   		    _vx = 0,
+				_xpos = 0,
+				_ypos = CAMERA_Y,
+				_zpos = 0,
+				_vx = 0,
 		    _vy = 0,
 		    _vz = 0,
 		    _angleY = 0,
@@ -109,7 +118,8 @@
 
 		var _FRICTION = 0.98,
 		    _STAGE_WIDTH = 1000,
-		    _STAGE_HEIGHT = 1000;
+		    _STAGE_HEIGHT = 1000,
+				_MAX_VZ = 100;
 
 		function initialize(obj){
 			_vpX = system.getWidth() / 2;
@@ -123,7 +133,7 @@
 			_setCockpit.apply(this);
 			
 			var start = document.getElementById('start');
-			start.addEventListener('touchend', _startGame, false);
+			start.addEventListener('click', _startGame, false);
 		}
 		
 		function _setCockpit(){
@@ -163,11 +173,84 @@
 			var start = e.currentTarget;
 			start.parentNode.removeChild(start);
 			_timer.start();
-			window.addEventListener('devicemotion', _deviceMotionAction, false);
-			window.addEventListener('orientationchange', function(e){
-				e.preventDefault();
-				console.log('orientationchange');
-			}, false);
+
+			_setEvent();
+		}
+
+		function _setEvent(){
+			if(arc.ua.isMobile){
+				window.addEventListener('devicemotion', _deviceMotionAction, false);
+				window.addEventListener('orientationchange', function(e){
+					e.preventDefault();
+				}, false);
+			}else{
+				//Handles speed of the car for PC
+				var accel = 0;
+				var pressing = {};
+				window.addEventListener('keydown', function(e){
+					switch(e.keyCode){
+						//left
+						case 37:
+							pressing.left = true;
+							break;
+						//up
+						case 38:
+							pressing.up = true;
+							break;
+						//right
+						case 39:
+							pressing.right = true;
+							break;
+						//down
+						case 40:
+							pressing.down = true;
+							break;
+					}
+				});
+
+				window.addEventListener('keyup', function(e){
+					switch(e.keyCode){
+						//left
+						case 37:
+							pressing.left = false;
+							break;
+						//up
+						case 38:
+							pressing.up = false;
+							break;
+						//right
+						case 39:
+							pressing.right = false;
+							break;
+						//down
+						case 40:
+							pressing.down = false;
+							break;
+					}
+				});
+
+				setInterval(function(){
+					if(pressing.left){
+						_angleY = (_angleY > -2.5) ? _angleY - 0.06 : -2.5;
+					}else if(pressing.right){
+						_angleY = (_angleY < 2.5) ? _angleY + 0.06 : 2.5;
+					}else{
+						_angleY = (Math.abs(_angleY) > 0.1) ? _angleY / 3 : 0;
+					}
+
+					if(pressing.up){
+						accel = (accel > -2) ? accel - 0.2 : -2; 
+					}else if(pressing.down){
+						accel = (accel < 2) ? accel + 0.2 : 2; 
+					}else{
+						accel = (Math.abs(accel) > 0.1) ? accel / 3 : 0;
+					}
+
+					if(Math.abs(_vz) < _MAX_VZ){
+						_vz += accel;
+					}
+				}, 16);
+			}
 		}
 
 		function _endGame(){
@@ -176,6 +259,7 @@
 			window.removeEventListener('devicemotion', _deviceMotionAction, false);
 		}
 		
+		//Handles speed and rotation of the car for mobile
 		function _deviceMotionAction(e){
 			var gravity = e.accelerationIncludingGravity,
 			    x = gravity.x,	//左右
@@ -188,11 +272,11 @@
 			_handle.setRotation(Math.floor(y * -5));
 		}
 
+		/*
 		function getNoizeReductedValue(prev, current){
 			return (Math.abs(prev - current) > 0.1) ? prev : prev * 0.5 + current * 0.5;
 		}
 
-		/*
 		function _deviceMotionAction(e){
 			var gravity = e.accelerationIncludingGravity;
 

@@ -11,8 +11,8 @@ Canvas Framework for smartphone
 
 DOWNLOAD
 -----------
-- [arctic.js](https://raw.github.com/DeNADev/Arctic.js/master/arctic.js)
-- [arctic.min.js](https://raw.github.com/DeNADev/Arctic.js/master/arctic.min.js)
+- [arctic.js](https://raw2.github.com/DeNADev/Arctic.js/master/src/arctic.js)
+- [arctic.min.js](https://raw2.github.com/DeNADev/Arctic.js/master/build/arctic.min.js)
 
 
 GETTING STARTED

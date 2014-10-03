@@ -1,18 +1,18 @@
 Arctic.js
 ======
 
-<img src="https://raw.github.com/DeNADev/Arctic.js/master/logo.png" width="347" height="287">
+<img src="https://raw.githubusercontent.com/Arcticjs/Arctic.js/master/logo.png" width="347" height="287">
 
 Canvas Framework for smartphone
 
-- [Introduction](http://denadev.github.com/Arctic.js/)
+- [Introduction](http://arcticjs.com/)
 - [Google Groups](https://groups.google.com/group/arcticjs?hl=ja)
 
 
 DOWNLOAD
 -----------
-- [arctic.js](https://raw2.github.com/DeNADev/Arctic.js/master/src/arctic.js)
-- [arctic.min.js](https://raw2.github.com/DeNADev/Arctic.js/master/build/arctic.min.js)
+- [arctic.js](https://raw.githubusercontent.com/Arcticjs/Arctic.js/master/src/arctic.js)
+- [arctic.min.js](https://raw.githubusercontent.com/Arcticjs/Arctic.js/master/build/arctic.min.js)
 
 
 GETTING STARTED

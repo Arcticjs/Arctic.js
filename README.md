@@ -70,15 +70,6 @@ window.addEventListener('DOMContentLoaded', function(e){
 }, false);
 ```
 
-PLATFORM
------------
-- Android2.1(can't rotate)
-- Android2.2+
-- iOS3(can't use arc.display.TextField)
-- iOS4+
-- Safari
-- Google Chrome
-
 
 LICENSE
 -----------
